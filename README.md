@@ -1,26 +1,22 @@
 # beyondthebite
 
-## Project setup
-```
-npm install
-```
+## Components
+1. Chapter [waypoint, id(scrollto)]
+  > Drawing
+  > Title
+  > Text
+  > Video
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+2. Mosquitos
 
-### Compiles and minifies for production
-```
-npm run build
-```
+3. Menu
 
-### Run your tests
-```
-npm run test
-```
+## JS
+Vue
+Anime: https://animejs.com
+Waypoints: https://github.com/scaccogatto/vue-waypoint
+Phenomenon: https://github.com/vaneenige/phenomenon
 
-### Lints and fixes files
-```
-npm run lint
-```
+## CSS
+Tachyons
+
