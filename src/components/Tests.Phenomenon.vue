@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button style="position:relative;z-index:2" @click="removeInstance(number)">ADD</button>
+    <!-- <button
+      style="position:relative;z-index:2"
+      @click="removeInstance(number)"
+    >ADD</button> -->
   </div>
 </template>
 
@@ -12,13 +15,9 @@ function getRandom(value) {
   return floor + Math.random() * value * 2;
 }
 
-
 function getArrayWithNoise(array, noise) {
   return array.map(item => item + getRandom(noise));
 }
-
-
-
 
 // Update value for every frame
 const step = 0.01;
@@ -67,23 +66,23 @@ export default {
 
   watch: {
     number: function(val) {
-      console.log('watch',{val})
+      console.log("watch", { val });
       this.addInstance(val);
     }
   },
 
   methods: {
     removeInstance() {
-      console.log('count', count)
+      console.log("count", count);
       if (count === 0) return;
       this.phenomenon.remove(count);
       count -= 1;
     },
     addInstance(val) {
       this.removeInstance();
-      
+
       count += 1;
-      console.log('adding',{val});
+      console.log("adding", { val });
       // The amount of particles that will be created
       const multiplier = val;
 
@@ -110,46 +109,52 @@ export default {
       // - Size (amount of variables in the data)
       const attributes = [
         {
+          name: "aPositionStart",
+          data: (index, total) => {
+            return getArrayWithNoise([-2, 0, 0], 0);
+          },
+          size: 1
+        },
 
-          
-    name: "aPositionStart",
-    data: (index, total) => {
-      return getArrayWithNoise([-2, 0, 0], 0);
-    },
-    size: 1
-  },
+        {
+          name: "aControlPointOne",
+          data: (index, total) => {
+// return getArrayWithNoise([0.5, -0.5, 0], .2)
+            const angle = index * ((2 * Math.PI) / total);
+            return [
+              Math.cos(angle) + getRandom(1),
+              1 + getRandom(0.5),
+              Math.sin(angle) + getRandom(1)
+            ];          },
+          size: 3
+        },
 
-  {
-    name: "aControlPointOne",
-    data: (index, total) => {
-      return getArrayWithNoise([-0.5, 0.5, 0], 0.8);
-    },
-    size: 4
-  },
-
-  {
-    name: "aControlPointTwo",
-    data: (index, total) => {
-      // return getArrayWithNoise([0.5, -0.5, 0], .2)
-      const angle = index * ((2 * Math.PI) / total);
-      return [
-        Math.cos(angle) + getRandom(1),
-        1 + getRandom(0.5),
-        Math.sin(angle) + getRandom(1)
-      ];
-    },
-    size: 4
-  },
-  
-  
-        //   name: "aPositionStart",
-        //   data: () => [
-        //     start.x + getRandom(0.1),
-        //     start.y + getRandom(0.1),
-        //     start.z + getRandom(0.1)
-        //   ],
-        //   size: 3
-        // },
+        {
+          name: "aControlPointTwo",
+          data: (index, total) => {
+            // return getArrayWithNoise([0.5, -0.5, 0], .2)
+            const angle = index * ((2 * Math.PI) / total);
+            return [
+              Math.cos(angle) + getRandom(1),
+              1 + getRandom(0.5),
+              Math.sin(angle) + getRandom(1)
+            ];
+          },
+          size: 3
+        },
+        {
+          name: "aControlPointThree",
+          data: (index, total) => {
+            // return getArrayWithNoise([0.5, -0.5, 0], .2)
+            const angle = index * ((2 * Math.PI) / total);
+            return [
+              Math.cos(angle) + getRandom(1),
+              1 + getRandom(0.5),
+              Math.sin(angle) + getRandom(1)
+            ];
+          },
+          size: 3
+        },
 
         {
           name: "aPositionEnd",
@@ -163,8 +168,8 @@ export default {
 
         {
           name: "aColor",
-          data: () => [[0,0,0],[1,1,1]],
-          size: 3
+          data: () => [0, 0, 0],
+          size: 1
         },
 
         {
@@ -198,17 +203,18 @@ export default {
       //     void main(){
       //       float tProgress = easeInOutQuint(min(1.0, max(0.0, (uProgress - aOffset)) / ${duration}));
       //       vec3 newPosition = mix(aPositionStart, aPositionEnd, tProgress);
-            
+
       //       gl_Position = uProjectionMatrix * uModelMatrix * uViewMatrix * vec4(newPosition + aPosition, 1.0);
       //       gl_PointSize = ${devicePixelRatio.toFixed(1)};
       //       vColor = aColor;
       //     }
       //   `;
 
-const vertex = `
+      const vertex = `
   attribute vec3 aPositionStart;
   attribute vec3 aControlPointOne;  
   attribute vec3 aControlPointTwo;  
+  attribute vec3 aControlPointThree; 
   attribute vec3 aPositionEnd;  
   attribute vec3 aPosition;  
   attribute vec3 aColor;  
@@ -233,7 +239,6 @@ const vertex = `
     vColor = aColor;
   }
 `;
-
 
       // Fragment shader to draw the colored pixels to the canvas
       const fragment = `
@@ -264,7 +269,6 @@ const vertex = `
         position: { x: 0, y: 0, z: 3 },
         uniforms,
         onRender: r => {
-          
           const { uProgress, uModelMatrix } = r.uniforms;
           uProgress.value += forward ? step : -step;
 

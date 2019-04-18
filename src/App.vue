@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <!-- <div v-anime="{ rotate: '1turn', backgroundColor: '#FFF', duration: 2000, loop: true }"> test</div> -->
-     <canvas></canvas>
+     <!-- <canvas></canvas> -->
+     <tests-line></tests-line>
       <tests-waypoint style="position:relative;top:1000px" @in="goingIn"></tests-waypoint>
       <input v-model="number">
-      <tests-phenomenon :speed="0.0001" :number="number"></tests-phenomenon>
+      <!-- <tests-phenomenon :speed="0.0001" :number="number"></tests-phenomenon> -->
       
       <!-- <tests-phenomenon :speed="0.01" :name="'mos2'"></tests-phenomenon> -->
       
@@ -15,6 +16,7 @@
 <script>
 import testsWaypoint from "./components/Tests.Waypoint.vue";
 import testsPhenomenon from "./components/Tests.Phenomenon.vue";
+import testsLine from "./components/Tests.Line.vue";
 import Chapter from "./components/Chapter.vue";
 
 
@@ -31,6 +33,7 @@ export default {
   components: {
     testsWaypoint,
     testsPhenomenon,
+    testsLine,
     Chapter
   },
   data: function() {
@@ -58,7 +61,6 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  /* height: 50000px; */
   background-color: white;
 }
 
