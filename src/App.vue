@@ -2,22 +2,30 @@
   <div id="app">
     <!-- <div v-anime="{ rotate: '1turn', backgroundColor: '#FFF', duration: 2000, loop: true }"> test</div> -->
      <!-- <canvas></canvas> -->
-     <tests-line></tests-line>
-      <tests-waypoint style="position:relative;top:1000px" @in="goingIn"></tests-waypoint>
+     <tests-drawing></tests-drawing>
+    <tests-line-simple></tests-line-simple>
+      <!-- <tests-line-with-anime></tests-line-with-anime> -->
+      <!-- <tests-waypoint style="position:absolute;top:120vh;z-index:3000;" @in="goingIn"></tests-waypoint>
       <input v-model="number">
-      <!-- <tests-phenomenon :speed="0.0001" :number="number"></tests-phenomenon> -->
-      
+      <tests-phenomenon :speed="0.0001" :number="number"></tests-phenomenon>
+       -->
       <!-- <tests-phenomenon :speed="0.01" :name="'mos2'"></tests-phenomenon> -->
       
-      <Chapter></Chapter>
+      <!-- <Chapter></Chapter> -->
   </div>
 </template>
 
 <script>
 import testsWaypoint from "./components/Tests.Waypoint.vue";
 import testsPhenomenon from "./components/Tests.Phenomenon.vue";
-import testsLine from "./components/Tests.Line.vue";
+
+import testsLineSimple from "./components/Tests.Line.Simple.vue";
+import testsLineWithAnime from "./components/Tests.Line.WithAnime.vue";
+
+import testsDrawing from "./components/Tests.Drawing.vue";
+
 import Chapter from "./components/Chapter.vue";
+
 
 
 
@@ -33,13 +41,16 @@ export default {
   components: {
     testsWaypoint,
     testsPhenomenon,
-    testsLine,
+    testsLineSimple,
+    testsLineWithAnime,
+    testsDrawing,
     Chapter
   },
   data: function() {
     return {
     number: 1000,
-    showBubble: false
+    showBubble: false,
+    scrollPercentage: 0
     }
   },
   methods: {
@@ -50,6 +61,14 @@ export default {
        this.number = count;
     }
    
+  },
+  mounted() {
+    window.addEventListener("scroll", function(e) {
+      this.scrollPercentage =
+        (document.documentElement.scrollTop + document.body.scrollTop) /
+        (document.documentElement.scrollHeight -
+          document.documentElement.clientHeight);
+  })
   }
 };
 </script>
@@ -60,8 +79,9 @@ html,
 body {
   margin: 0;
   padding: 0;
+  /* height: 400vh; */
   width: 100%;
-  background-color: white;
+  background-color: #F4F3EF;
 }
 
 .anim {
@@ -79,7 +99,7 @@ body {
 
 canvas {
   position: fixed;
-  top: 0;
+  z-index: 2000;
   width: 100vw;
   height: 100vh;
 }

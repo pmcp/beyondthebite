@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- <button
-      style="position:relative;z-index:2"
-      @click="removeInstance(number)"
-    >ADD</button> -->
+
   </div>
 </template>
 
@@ -119,13 +116,14 @@ export default {
         {
           name: "aControlPointOne",
           data: (index, total) => {
-// return getArrayWithNoise([0.5, -0.5, 0], .2)
+            // return getArrayWithNoise([0.5, -0.5, 0], .2)
             const angle = index * ((2 * Math.PI) / total);
             return [
               Math.cos(angle) + getRandom(1),
               1 + getRandom(0.5),
               Math.sin(angle) + getRandom(1)
-            ];          },
+            ];
+          },
           size: 3
         },
 
@@ -179,66 +177,34 @@ export default {
         }
       ];
 
-      // Vertex shader used to calculate the position
-      // const vertex = `
-      //     attribute vec3 aPositionStart;
-      //     attribute vec3 aControlPointOne;
-      //     attribute vec3 aControlPointTwo;
-      //     attribute vec3 aPositionEnd;
-      //     attribute vec3 aPosition;
-      //     attribute vec3 aColor;
-      //     attribute float aOffset;
-
-      //     uniform float uProgress;
-      //     uniform mat4 uProjectionMatrix;
-      //     uniform mat4 uModelMatrix;
-      //     uniform mat4 uViewMatrix;
-
-      //     varying vec3 vColor;
-
-      //     float easeInOutQuint(float t){
-      //       return t < 0.5 ? 16.0 * t * t * t * t * t : 1.0 + 16.0 * (--t) * t * t * t * t;
-      //     }
-
-      //     void main(){
-      //       float tProgress = easeInOutQuint(min(1.0, max(0.0, (uProgress - aOffset)) / ${duration}));
-      //       vec3 newPosition = mix(aPositionStart, aPositionEnd, tProgress);
-
-      //       gl_Position = uProjectionMatrix * uModelMatrix * uViewMatrix * vec4(newPosition + aPosition, 1.0);
-      //       gl_PointSize = ${devicePixelRatio.toFixed(1)};
-      //       vColor = aColor;
-      //     }
-      //   `;
-
       const vertex = `
-  attribute vec3 aPositionStart;
-  attribute vec3 aControlPointOne;  
-  attribute vec3 aControlPointTwo;  
-  attribute vec3 aControlPointThree; 
-  attribute vec3 aPositionEnd;  
-  attribute vec3 aPosition;  
-  attribute vec3 aColor;  
-  attribute float aOffset;  
+        attribute vec3 aPositionStart;
+        attribute vec3 aControlPointOne;  
+        attribute vec3 aControlPointTwo;  
+        attribute vec3 aControlPointThree; 
+        attribute vec3 aPositionEnd;  
+        attribute vec3 aPosition;  
+        attribute vec3 aColor;  
+        attribute float aOffset;  
 
-  uniform float uProgress;
-  uniform mat4 uProjectionMatrix;
-  uniform mat4 uModelMatrix;
-  uniform mat4 uViewMatrix;
+        uniform float uProgress;
+        uniform mat4 uProjectionMatrix;
+        uniform mat4 uModelMatrix;
+        uniform mat4 uViewMatrix;
 
-  varying vec3 vColor;
+        varying vec3 vColor;
 
-  vec3 bezier4(vec3 a, vec3 b, vec3 c, vec3 d, float t) {
-    return mix(mix(mix(a, b, t), mix(b, c, t), t), mix(mix(b, c, t), mix(c, d, t), t), t);
-  }
+        vec3 bezier4(vec3 a, vec3 b, vec3 c, vec3 d, float t) {
+          return mix(mix(mix(a, b, t), mix(b, c, t), t), mix(mix(b, c, t), mix(c, d, t), t), t);
+        }
 
-  void main(){
-    float tProgress = min(1.0, max(0.0, (uProgress - aOffset)) / ${duration});
-    vec3 newPosition = bezier4(aPositionStart, aControlPointOne, aControlPointTwo, aPositionEnd, tProgress);
-    gl_PointSize = 1.4;
-    gl_Position = uProjectionMatrix * uModelMatrix * uViewMatrix * vec4(newPosition + aPosition, 1.0);
-    vColor = aColor;
-  }
-`;
+        void main(){
+          float tProgress = min(1.0, max(0.0, (uProgress - aOffset)) / ${duration});
+          vec3 newPosition = bezier4(aPositionStart, aControlPointOne, aControlPointTwo, aPositionEnd, tProgress);
+          gl_PointSize = 1.4;
+          gl_Position = uProjectionMatrix * uModelMatrix * uViewMatrix * vec4(newPosition + aPosition, 1.0);
+          vColor = aColor;
+        }`;
 
       // Fragment shader to draw the colored pixels to the canvas
       const fragment = `
@@ -264,6 +230,9 @@ export default {
   mounted() {
     // Create the renderer
     this.phenomenon = new Phenomenon({
+      context: {
+        alpha: true
+      },
       settings: {
         devicePixelRatio,
         position: { x: 0, y: 0, z: 3 },
