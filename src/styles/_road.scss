@@ -1,0 +1,9 @@
+.road__container {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
