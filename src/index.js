@@ -2,8 +2,6 @@ require('normalize.css/normalize.css');
 require('./styles/index.scss');
 
 import anime from 'animejs';
-// import * as PIXI from 'pixi.js'
-// import * as PIXIParticles from 'pixi-particles';
 
 import base from './base.js';
 import instance from './instance.js';
@@ -39,7 +37,7 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// animate();
+animate();
 
 
 
@@ -130,7 +128,7 @@ function animateOut(chapter) {
 
 
 
-let scrollPercentage = 0;
+
 let drawnOne = false;
 let drawnTwo = false;
 let drawnThree = false;
@@ -141,12 +139,33 @@ const pathLength = path.getTotalLength();
 path.style.strokeDasharray = pathLength + " " + pathLength;
 path.style.strokeDashoffset = pathLength;
 path.getBoundingClientRect();
-window.addEventListener("scroll", function(e) {
-  let scrollPercentage =
-    (document.documentElement.scrollTop + document.body.scrollTop) /
-    (document.documentElement.scrollHeight -
-      document.documentElement.clientHeight);
-      
+
+
+document.addEventListener('scroll', function(){
+
+  let h = document.documentElement, 
+      b = document.body,
+      st = 'scrollTop',
+      sh = 'scrollHeight';
+
+
+      // Need to doc this, but this was horrible, document.documentElement.scrollHeight kept changing due to ThreeJS (I think)
+      function getDocHeight() {
+        var D = document;
+        return Math.max(
+            D.body.scrollHeight, D.documentElement.scrollHeight,
+            D.body.offsetHeight, D.documentElement.offsetHeight,
+            D.body.clientHeight, D.documentElement.clientHeight
+        );
+    }
+
+
+console.log(getDocHeight())
+  let scrollPercentage = (h[st]||b[st]) / ((getDocHeight()||b[sh]) - h.clientHeight);
+
+  
+console.log(scrollPercentage);
+
   let drawLength = pathLength * (scrollPercentage);
   path.style.strokeDashoffset = pathLength - drawLength;
   if (scrollPercentage >= 0.99) {
