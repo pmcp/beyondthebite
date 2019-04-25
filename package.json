@@ -25,6 +25,7 @@
         "normalize.css": "^8.0.0",
         "pixi-particles": "^4.1.0",
         "pixi.js": "^4.8.7",
+        "plyr": "^3.5.4",
         "three": "^0.103.0",
         "three.phenomenon": "^1.1.0"
     },

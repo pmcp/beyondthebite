@@ -1,9 +1,16 @@
 // Main tags
 
+
+$light: #F4F4ED;
+$dark: #2D2D2D;
+
+
 html, body {
     height: 100%;
     width: 100%;
     font-size: 100%;
+    background-color: $light;
+    color: #2D2D2D;
 }
 
 
@@ -20,3 +27,4 @@ a {
 @import "_particles";
 @import "_chapter";
 @import "_road";
+@import "_video";
