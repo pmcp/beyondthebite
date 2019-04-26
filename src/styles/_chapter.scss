@@ -1,6 +1,6 @@
 .chapter {
-  position: absolute;
-  opacity: 0;
+  // position: absolute;
+  opacity: 1;
   z-index: 20;
 }
 
@@ -47,17 +47,26 @@
     background: url("../assets/carwash.png") no-repeat;
     background-size: contain;
     background-size: 139%;
-    background-position: -5.2vw 0.1vw;
-       
+    background-position: -5.2vw 0.1vw; 
   }
   &#imageTwo {
     background: url("../assets/carwash.png") no-repeat;
     background-size: contain;
     background-size: 139%;
     background-position: -5.2vw 0.1vw;
-       
   }
-
+  &#imageThree {
+    background: url("../assets/carwash.png") no-repeat;
+    background-size: contain;
+    background-size: 139%;
+    background-position: -5.2vw 0.1vw;
+  }
+    &#imageFour {
+      background: url("../assets/carwash.png") no-repeat;
+      background-size: contain;
+      background-size: 139%;
+      background-position: -5.2vw 0.1vw;
+  }
 }
 
 @media only screen and (max-width: 600px) {

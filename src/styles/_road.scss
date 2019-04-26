@@ -1,8 +1,9 @@
 .road__container {
-  position: absolute;
-  top: 50vh;
+  // position: absolute;
+  // top: 90vh;
   z-index: 1;
-  width: 50%;
+  width: 100%;
+  height: 100vh;
   svg {
     height: 100%;
     width: 100%;
@@ -13,6 +14,14 @@
     fill: none;
     stroke: #000;
     stroke-width: .3px;
+}
 
 
+
+
+@media only screen and (max-width: 600px) {
+  .road__container {
+      width: 100%;
+      
+  }
 }
