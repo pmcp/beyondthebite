@@ -86,7 +86,7 @@ const wayPoints = [
 // Animations using animejs
 function animateIn(chapter) {
   const targetContainer = "#chapter" + chapter;
-  const targetLines = "#image" + chapter + " .animateLines path";
+  const targetLines = "#image" + chapter + " .animatedLine path";
   let tl = anime.timeline({});
 
   tl.add({

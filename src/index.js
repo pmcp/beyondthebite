@@ -3,11 +3,12 @@ require("./styles/index.scss");
 
 import updateOnScroll from "uos";
 import anime from "animejs";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 
 
 let animateRoad = anime({
-  targets: ".road__container path",
+  targets: ".road__container path ",
   strokeDashoffset: [anime.setDashoffset, 0],
   // easing: 'easeInOutSine',
   duration: 1000
@@ -15,62 +16,66 @@ let animateRoad = anime({
 
 
 function Drawing(id) {
-  this.animation = anime({
-    targets: "#" + id + " path",
+
+
+  
+  // this.animation = anime({
+  //   targets: "#" + id + " path",
+  //   strokeDashoffset: [anime.setDashoffset, 0],
+  //   // delay: function(el, i) { return i * 250 },
+  //   duration: 1000,
+  //   easing: 'easeInOutSine',
+
+  // });
+
+  this.animation = anime.timeline({})
+  .add({
+    targets: "#" + id + " path.animatedRoad",
     strokeDashoffset: [anime.setDashoffset, 0],
     // delay: function(el, i) { return i * 250 },
     duration: 1000,
     easing: 'easeInOutSine',
-  });
+  })
+  .add({
+    targets: "#" + id + " path.animatedLine",
+    strokeDashoffset: [anime.setDashoffset, 0],
+    duration: 1000,   
+    easing: 'easeInOutSine',
+  })
 }
 
 
 let drawings = {}
 drawings.drawingOne = new Drawing('drawingOne');
 drawings.drawingTwo = new Drawing('drawingTwo');
-
-
-// Seek location on timeline
-let scrollToTimelineRoad = function(scrollPercentage){
-  animateRoad.seek(animateRoad.duration * scrollPercentage/10);
-}
-
-
-document.addEventListener("scroll", function() {
-  let h = document.documentElement,
-    b = document.body,
-    st = "scrollTop",
-    sh = "scrollHeight";
-  // Need to doc this, but this was horrible, document.documentElement.scrollHeight kept changing in other browsers due to ThreeJS (I think)
-  function getDocHeight() {
-    var D = document;
-    return Math.max(
-      D.body.scrollHeight,
-      D.documentElement.scrollHeight,
-      D.body.offsetHeight,
-      D.documentElement.offsetHeight,
-      D.body.clientHeight,
-      D.documentElement.clientHeight
-    );
-  }
-
-  let scrollPercentage =
-    (h[st] || b[st]) / ((getDocHeight() || b[sh]) - h.clientHeight);
-    scrollToTimelineRoad(scrollPercentage)
-});
-
-
-
-scrollToTimelineRoad(0);
+drawings.drawingThree = new Drawing('drawingThree');
+drawings.drawingFour = new Drawing('drawingFour');
+drawings.drawingFive = new Drawing('drawingFive');
 
 
 
 
 
 
+// // Get jQuery out of here <3
+// function drawRoads() {
+//   $(".animate_road").each(function () {
+//     console.log('test')
+//       const screenTop = window.pageYOffset || document.documentElement.scrollTop;
+//       const screenBottom = (window.pageYOffset || document.documentElement.scrollTop) + $(window).height();
+//       const boxTop = $(this).offset().top;
+//       const boxHeight = $(this).height();
+//       const boxBottom = boxTop + boxHeight;
+//       const ani = drawings[this.id].animation;     
 
-function listVisibleBoxes() {
-    
+
+//       let percent = (screenBottom - boxTop) / boxHeight;
+//        ani.seek(ani.duration * percent * 0.6);            
+//   });
+// }
+
+// Get jQuery out of here <3
+function drawChapters() {
   $(".animate_svg").each(function () {
       const screenTop = window.pageYOffset || document.documentElement.scrollTop;
       const screenBottom = (window.pageYOffset || document.documentElement.scrollTop) + $(window).height();
@@ -78,27 +83,31 @@ function listVisibleBoxes() {
       const boxHeight = $(this).height();
       const boxBottom = boxTop + boxHeight;
       const ani = drawings[this.id].animation;     
+      ani.seek(ani.duration * 100);
       if(boxTop > screenTop) {
-          if(boxBottom < screenBottom) {
+        // ani.seek(ani.duration * 100);
+          if(boxBottom < screenBottom -200) {
+            console.log('test 1')
               ani.seek(ani.duration * 100);
           } else if(boxTop < screenBottom) {
-              let percent = (screenBottom - boxTop) / boxHeight;
-              console.log(percent)
-              ani.seek(ani.duration * percent);              
+            console.log('test 2')
+              let percent = (screenBottom - boxTop -200) / boxHeight;
+              ani.seek(ani.duration * percent);            
           }
       } else if(boxBottom > screenTop) {
+        console.log('test 2')
           let percent = (screenBottom - boxTop) / boxHeight;
-          ani.seek(ani.duration * percent);
+          ani.seek(ani.duration);
       }
   });
-  
 }
 
 $(function () {
-  listVisibleBoxes();
+  drawChapters();
+  // drawRoads();
   $(window).on("scroll", function() {
-    console.log('scrolling')
-    listVisibleBoxes();
+    drawChapters();
+    // drawRoads();
   });
   
 });

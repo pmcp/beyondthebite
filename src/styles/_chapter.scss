@@ -2,19 +2,31 @@
 .chapter {
   position: relative;
 
-  top: 200vh;
+  // top: 200vh;
   // position: absolute;
   opacity: 1;
   z-index: 20;
 }
 
 .chapter__container {
+  position: relative;
+  // top: -200px;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-around;
   width: 80%;
-  margin: 100vh 10%;
+  margin: 0 10%;
   max-height: 80vh;
+}
+
+.chapter__top {
+  width: 100%;
+  
+  
+  // left: 21%;
+    // width: 24%;
+    // top: -11%;
+
 }
 
 .chapter__left {
@@ -22,7 +34,7 @@
   flex: 4 1 0;
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
 }
 
@@ -42,6 +54,10 @@
 .chapter__svg {
 width: 100%;
 height: 100%;
+position: relative;
+
+top: -27.2%;
+left: 42px;
 }
 
 .chapter__svg path {
@@ -51,32 +67,6 @@ height: 100%;
   stroke-width:1px;
 }
 
-.chapter__svgcontainer {
-  &#imageOne {
-    background: url("../assets/carwash.png") no-repeat;
-    background-size: contain;
-    background-size: 139%;
-    background-position: -5.2vw 0.1vw; 
-  }
-  &#imageTwo {
-    background: url("../assets/carwash.png") no-repeat;
-    background-size: contain;
-    background-size: 139%;
-    background-position: -5.2vw 0.1vw;
-  }
-  &#imageThree {
-    background: url("../assets/carwash.png") no-repeat;
-    background-size: contain;
-    background-size: 139%;
-    background-position: -5.2vw 0.1vw;
-  }
-    &#imageFour {
-      background: url("../assets/carwash.png") no-repeat;
-      background-size: contain;
-      background-size: 139%;
-      background-position: -5.2vw 0.1vw;
-  }
-}
 
 @media only screen and (max-width: 600px) {
   .chapter__container {

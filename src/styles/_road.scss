@@ -1,16 +1,22 @@
 .road__container {
   position: absolute;
-  top: 50vh;
-  z-index: 1000;
-  width: 100%;
   // margin-left: 20%;
-  // height: 100vh;
-  svg {
-    height: 100%;
-    width: 100%;
-  }
+  z-index: 2000;
+}
+.road__path {
+  
+  height: 100%;
+  width: 100%;
+      fill: none;
+    stroke: #000;
+    stroke-width: 1px;
 }
 
+.road__one {
+  width: 80vw;
+  // left: 21%;
+  // top: -11%;
+}
 // .road__svg path {
 //     fill: none;
 //     stroke: #000;
@@ -27,19 +33,3 @@
   }
 }
 
-
-#roadTest1 {
-  stroke: green;
-  fill: none;
-  stroke-dasharray: 5,5; 
-  stroke-width: 5;
-
-}
-
-#roadTest2 {
-  stroke: red;
-  fill: none;
-  stroke-dasharray: 5,5; 
-  stroke-width: 5;
-
-}
