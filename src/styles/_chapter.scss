@@ -1,4 +1,8 @@
+
 .chapter {
+  position: relative;
+
+  top: 200vh;
   // position: absolute;
   opacity: 1;
   z-index: 20;
@@ -9,7 +13,7 @@
   flex-flow: row nowrap;
   justify-content: space-around;
   width: 80%;
-  margin: 0 10%;
+  margin: 100vh 10%;
   max-height: 80vh;
 }
 
@@ -33,6 +37,11 @@
 
 .chapter__spacer {
   flex: 1 1 0;
+}
+
+.chapter__svg {
+width: 100%;
+height: 100%;
 }
 
 .chapter__svg path {
@@ -74,7 +83,7 @@
     display: flex;
     flex-flow: column;
     width: 90%;
-    margin: 0 5%;
+    margin: 100vh 5%;
     max-height: 80vh;
   }
 
