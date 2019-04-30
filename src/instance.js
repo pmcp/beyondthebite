@@ -3,13 +3,13 @@ import { getArrayWithNoise, getRandomBetween } from './utils';
 
 
 
-function createInstance(multiplier) {
+function createInstance() {
 
 
-console.log(multiplier)
+const multiplier = 2000;
   
-const duration = 1.7;
-const geometry = new THREE.CircleGeometry(.03);
+const duration = 10.8;
+const geometry = new THREE.CircleGeometry(13);
 const material = new THREE.MeshPhongMaterial({
   color: '#000',
   emissive: '#ff6e40',
@@ -20,13 +20,13 @@ const material = new THREE.MeshPhongMaterial({
 let attributes = [
   {
     name: 'aPositionStart',
-    data: () => getArrayWithNoise([10, -10, 0], 2),
+    data: () => getArrayWithNoise([0, 0, 0], 2),
     size: 3,
   },
   {
     name: 'aControlPointOne',
     data: () => getArrayWithNoise([20, 20, 20], 5),
-    size: 3,
+    size: 1,
   },
   {
     name: 'aControlPointTwo',
@@ -34,13 +34,18 @@ let attributes = [
     size: 3,
   },
   {
+    name: 'aControlPointThree',
+    data: () => getArrayWithNoise([400, 400, 400], 10),
+    size: 3,
+  },
+  {
     name: 'aPositionEnd',
-    data: () => getArrayWithNoise([0, 10, 10], 10),
+    data: () => getArrayWithNoise([20, 100, 10], 10),
     size: 3,
   },
   {
     name: 'aOffset',
-    data: i => [i * ((2 - duration) / (multiplier - 1))],
+    data: i => [i * ((2 - duration) / (multiplier - 10))],
     size: 1,
   },
   {
@@ -69,6 +74,7 @@ let attributes = [
     attribute vec3 aPositionStart;
     attribute vec3 aControlPointOne;
     attribute vec3 aControlPointTwo;
+    attribute vec3 aControlPointThree;
     attribute vec3 aPositionEnd;
     attribute vec3 aColor;
     attribute float aOffset;
@@ -89,7 +95,7 @@ let attributes = [
       return v + 2.0 * cross(q.xyz, cross(q.xyz, v) + q.w * v);
     }
 
-    vec3 bezier4(vec3 a, vec3 b, vec3 c, vec3 d, float t) {
+    vec3 bezier4(vec3 a, vec3 b, vec3 c, vec3 d, vec3 e, float t) {
       return mix(mix(mix(a, b, t), mix(b, c, t), t), mix(mix(b, c, t), mix(c, d, t), t), t);
     }
 
@@ -98,7 +104,7 @@ let attributes = [
       vec4 quatX = quatFromAxisAngle(vec3(1.0, 0.0, 0.0), -5.0 * tProgress);
       vec4 quatY = quatFromAxisAngle(vec3(0.0, 0.0, 0.0), -5.0 * tProgress);
       vec3 basePosition = rotateVector(quatX, rotateVector(quatY, position));
-      vec3 newPosition = bezier4(aPositionStart, aControlPointOne, aControlPointTwo, aPositionEnd, tProgress);
+      vec3 newPosition = bezier4(aPositionStart, aControlPointOne, aControlPointTwo, aControlPointThree, aPositionEnd, tProgress);
       float scale = tProgress * 2.0 - 1.0;
       scale = 1.0 - scale * scale;
       basePosition *= scale;
@@ -114,6 +120,7 @@ let attributes = [
     ['vec3 totalEmissiveRadiance = emissive;', 'vec3 totalEmissiveRadiance = vColor;'],
   ];
 
+  
   let instance = new THREE.Phenomenon({
     geometry,
     multiplier,
@@ -124,6 +131,8 @@ let attributes = [
     vertex,
     fragment,
   });
+
+
 
   return instance;
 }

@@ -1,4 +1,12 @@
+.video__button {
+  position: fixed;
+  top: 5%;
 
+  left: 2%;
+  
+  cursor: pointer;
+  z-index: 2000;
+}
 
 
 
@@ -11,7 +19,7 @@
   height: 0%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.35s, visibility 0.35s, height 0.35s;
+  transition: opacity 0.35s, visibility 0.35s;
   overflow: hidden;
 
   &.open {
@@ -23,7 +31,7 @@
 }
 
 #videoToggle {
-  display: none;
+  
   .active {
     display: block; 
   }
