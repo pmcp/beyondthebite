@@ -271,15 +271,15 @@ function Drawing(id) {
     .add({
       targets: "#" + id + " path.animatedRoad",
       strokeDashoffset: [anime.setDashoffset, 0],
-      // delay: function(el, i) { return i * 250 },
-      duration: 1000,
+      duration: 3000,
       easing: "easeInOutSine"
     })
     .add({
       targets: "#" + id + " path.animatedLine",
+      delay: function(el, i) { return i * 250 },
       strokeDashoffset: [anime.setDashoffset, 0],
       duration: 1000,
-      easing: "easeInOutSine"
+      
     });
 }
 
@@ -310,14 +310,20 @@ Array.prototype.forEach.call(animatedEls, function(element, index) {
     if (boxTop > screenTop) {
       // ani.seek(ani.duration * 100);
       if (boxBottom < screenBottom - 200) {
+        console.log(1)
         ani.seek(ani.duration * 100);
       } else if (boxTop < screenBottom) {
-        let percent = (screenBottom - boxTop - 200) / boxHeight;
+        
+        
+        let percent = (screenBottom - boxTop - 500) / boxHeight;
+        console.log(percent)
         ani.seek(ani.duration * percent);
       }
     } else if (boxBottom > screenTop) {
-      let percent = (screenBottom - boxTop) / boxHeight;
-      ani.seek(ani.duration);
+      
+      let percent = (screenBottom - boxTop - 500) / boxHeight;
+      console.log(3, percent)
+      ani.seek(ani.duration  * percent);
     }
 
 });
