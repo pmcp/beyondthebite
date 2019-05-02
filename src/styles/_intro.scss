@@ -1,3 +1,47 @@
 .intro__container {
-  height: 100vh;
+  height: 90%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.intro__subtitle {
+  padding-bottom: 4%;
+}
+.intro__image {
+  width: 60%;
+  height: auto;
+}
+
+.intro__quote {
+  padding-bottom: 4%;
+}
+
+.intro__player {
+  padding: .8em;
+  background-color: $dark;
+  color: $light;
+  display: flex;
+  flex-flow: row;
+  width: 10em;
+  justify-content: space-around;
+  border: none;
+  cursor: pointer;
+
+  
+
+}
+
+
+svg.player__button {
+  height: 1.2em;  
+}
+
+svg.player__button * {
+  fill:none;
+  stroke:$light;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }

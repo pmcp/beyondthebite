@@ -40,6 +40,15 @@ h2.chapter__title {
   font-size:calc(10px + .8vw);
 }
 
+.chapter__subtitle {
+  color: $accent;
+  font-family: essonnes-headline, serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size:calc(12px + 1vw);
+}
+
+
 p.chapter__descr {
   font-family: essonnes-headline, serif;
   font-weight: 100;
@@ -47,3 +56,34 @@ p.chapter__descr {
   font-size:calc(10px + .2vw);
 }
 
+p.intro__subtitle {
+  font-family: essonnes-headline, serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size:calc(10px + 1.2vw);
+}
+
+q.intro__quote {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 100;
+  font-size:calc(10px + .8vw);
+}
+
+
+.intro__player {
+  text-transform: uppercase;
+  font-family: proxima-nova, sans-serif;
+  font-weight: 100;
+}
+
+
+
+// Utils
+
+.utils__bold {
+  font-weight: 400;
+}
+
+.utils__uppercase {
+  text-transform: uppercase;
+}

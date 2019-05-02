@@ -83,3 +83,40 @@ top: -20%;
     max-width: 100%;
   }
 }
+
+.chapter__play {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  display: flex;
+  flex-flow: row;
+  svg {
+    padding-left: 10px;
+ 
+  }
+  svg path {
+    stroke: $dark;
+    transition: stroke 0.25s ease;
+  }
+
+  svg polygon {
+    stroke: $dark;
+    transition: stroke 0.25s ease;
+  }
+
+  &:hover {
+    color: $accent;
+
+    transition: color 0.25s ease;
+    svg path {
+      stroke: $accent;
+      transition: stroke 0.25s ease;
+    }
+  
+    svg polygon {
+      stroke: $accent;
+      transition: stroke 0.25s ease;
+    }
+  }
+}

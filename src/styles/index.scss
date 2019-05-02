@@ -3,6 +3,7 @@
 
 $light: #F4F4ED;
 $dark: #2D2D2D;
+$accent: #cf8289;
 
 
 html, body {
@@ -10,7 +11,7 @@ html, body {
     width: 100%;
     font-size: 100%;
     background-color: $light;
-    color: #2D2D2D;
+    color: $dark;
 }
 
 

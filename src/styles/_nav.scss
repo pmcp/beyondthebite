@@ -1,21 +1,11 @@
-// @import url(https://fonts.googleapis.com/css?family=Varela+Round);
-
-$color-background: $dark;
-$color-main: $dark;
-$color-active: #fff;
-$color-link: #fff;
-
-$button-height: 27px;
-$button-width: 35px;
-
 .nav__button {
   position: fixed;
   top: 5%;
   right: 2%;
-  height: $button-height;
-  width: $button-width;
+  height: 27px;
+  width: 35px;
   cursor: pointer;
-  z-index: 2000;
+  z-index: 3100;
   transition: opacity 0.25s ease;
 
   &:hover {
@@ -25,16 +15,16 @@ $button-width: 35px;
   &.active {
     .top {
       transform: translateY(11px) translateX(0) rotate(45deg);
-      background: $color-active;
+      background: $light;
     }
     .middle {
       opacity: 0;
-      background: $color-active;
+      background: $light;
     }
 
     .bottom {
       transform: translateY(-11px) translateX(0) rotate(-45deg);
-      background: $color-active;
+      background: $light;
     }
     &.videoOpen {
       display: none;
@@ -42,7 +32,7 @@ $button-width: 35px;
   }
 
   span {
-    background: $color-main;
+    background: $dark;
     border: none;
     height: 5px;
     width: 100%;
@@ -64,7 +54,9 @@ $button-width: 35px;
 
 .nav__overlay {
   position: fixed;
-  background: $color-main;
+  background: $dark;
+  display: flex;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -79,75 +71,7 @@ $button-width: 35px;
     opacity: 0.97;
     visibility: visible;
     height: 100%;
-    z-index: 900;
-
-    li {
-      animation: fadeInRight 0.5s ease forwards;
-      animation-delay: 0.35s;
-
-      &:nth-of-type(2) {
-        animation-delay: 0.4s;
-      }
-      &:nth-of-type(3) {
-        animation-delay: 0.45s;
-      }
-      &:nth-of-type(4) {
-        animation-delay: 0.5s;
-      }
-    }
-  }
-  nav {
-    position: relative;
-    height: 70%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 50px;
-    font-family: "Varela Round", serif;
-    font-weight: 400;
-    text-align: center;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    display: inline-block;
-    position: relative;
-    height: 100%;
-
-    li {
-      display: block;
-      height: 25%;
-      height: calc(100% / 4);
-      min-height: 50px;
-      position: relative;
-      opacity: 0;
-
-      a {
-        display: block;
-        position: relative;
-        color: $color-link;
-        text-decoration: none;
-        overflow: hidden;
-
-        &:hover:after,
-        &:focus:after,
-        &:active:after {
-          width: 100%;
-        }
-
-        &:after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0%;
-          transform: translateX(-50%);
-          height: 3px;
-          background: $color-link;
-          transition: 0.35s;
-        }
-      }
-    }
+    z-index: 3000;
   }
 }
 
@@ -191,41 +115,41 @@ $button-width: 35px;
   }
 
   .cls-2 {
-    fill: #fff;
+    fill: $light;
   }
 
   .svg__home {
-    fill: #cf8289;
+    fill: $accent;
   }
 
   .svg__chapter {
     .svg__circle {
-      fill: #fff;
-      stroke: #fff;
+      fill: $light;
+      stroke: $light;
       stroke-width: 0px;
       transition: stroke-width 1s;
     }
 
     .svg__text path {
-      fill: #fff;
+      fill: $light;
       stroke-width: 0;
       transition: fill .4s;
     }
 
     .svg__label {
-      fill: #cf8289;
+      fill: $accent;
     }
 
     &:hover {
       cursor: pointer;
       .svg__circle {
-        fill: #cf8289;
-        stroke: #cf8289;
+        fill: $accent;
+        stroke: $accent;
         stroke-width: 10px;
         transition: stroke-width 0.2s;
       }
       .svg__text path {
-        fill: #cf8289;
+        fill: $accent;
         stroke-width: 0;
         transition: fill 0.2s;
       }
@@ -234,7 +158,7 @@ $button-width: 35px;
 
   .svg__line {
     fill: none;
-    stroke: #fff;
+    stroke: $light;
     stroke-miterlimit: 10;
   }
 }
