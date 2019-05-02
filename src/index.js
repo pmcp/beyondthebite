@@ -271,7 +271,7 @@ function Drawing(id) {
     .add({
       targets: "#" + id + " path.animatedRoad",
       strokeDashoffset: [anime.setDashoffset, 0],
-      duration: 3000,
+      duration: 2500,
       easing: "easeInOutSine"
     })
     .add({
@@ -315,13 +315,13 @@ Array.prototype.forEach.call(animatedEls, function(element, index) {
       } else if (boxTop < screenBottom) {
         
         
-        let percent = (screenBottom - boxTop - 500) / boxHeight;
+        let percent = (screenBottom - boxTop - 200) / boxHeight;
         console.log(percent)
         ani.seek(ani.duration * percent);
       }
     } else if (boxBottom > screenTop) {
       
-      let percent = (screenBottom - boxTop - 500) / boxHeight;
+      let percent = (screenBottom - boxTop - 200) / boxHeight;
       console.log(3, percent)
       ani.seek(ani.duration  * percent);
     }
