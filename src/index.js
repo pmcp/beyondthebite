@@ -465,7 +465,7 @@ function toggleAllBGAudio() {
 
 const toggleBGAudio = document.getElementById("bgAudioToggle");
 toggleBGAudio.addEventListener("click", function() {
-  toggleAllBGAudio();
+  // toggleAllBGAudio();
 
   const audioButtons = document.querySelectorAll(".audio__button");
   audioButtons.forEach(function(elem) {
