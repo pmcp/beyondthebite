@@ -1,27 +1,3 @@
-// font-family: proxima-nova, sans-serif;
-
-// thin
-// font-weight: 100;
-
-// light
-// font-weight: 300;
-
-// regular
-// font-weight: 400;
-
-// bold
-// font-weight: 700;
-
-// font-family: essonnes-headline, serif;
-// font-weight: 700;
-// font-style: normal;
-
-// font-family: essonnes-text, serif;
-// font-weight: 400;
-// font-style: normal;
-// -
-// font-style: italic;
-
 p {
   font-family: proxima-nova, sans-serif;
 }
@@ -111,4 +87,10 @@ q.intro__quote {
   font-weight: 700;
   font-style: normal;
   font-size:calc(10px + 1.2vw);
+}
+
+.audio__text {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 100;
+  font-size:calc(10px + .4vw);
 }

@@ -5,13 +5,21 @@ import anime from "animejs";
 import { getArrayWithNoise, getRandomBetween } from "./utils";
 
 // Audio Player: Mosquitos
-const audio = new Plyr("audio", {
-  autoplay: true
-});
-audio.loop = true;
+// const mosquitoAudio = new Plyr("#mosquitos", {
+//   autoplay: true
+
+// });
+
+// mosquitoAudio.loop = true;
+
+
+// Audio Player: Chapters
+const chaptersAudio = new Plyr("#chaptersAudio", {});
+
+
+
 
 // ThreeJS: Mosquitos
-
 let instance;
 let uniforms = {
   time: {
@@ -115,7 +123,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio >= 2 ? 2 : 1);
 
 document.querySelector("#particles").appendChild(renderer.domElement);
-// document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 
@@ -136,12 +143,11 @@ const light = new THREE.SpotLight(0x000000, 1, 80, Math.PI * 0.25, 1, 2);
 light.position.set(0, 40, 0);
 
 scene.add(light);
-
-
 let time = 0;
-
 function createMovingMosquitos() {
+  // Reset time to zero
   time = 0;
+  // Create the mesh
   createInstance({
     geometry: new THREE.CircleGeometry(0.03, 12, 1),
     material: new THREE.MeshBasicMaterial({
@@ -159,56 +165,61 @@ function createMovingMosquitos() {
       () => getArrayWithNoise([10, 0, 0], 4)
     ]
   });
+  // Set mesh opacity to almost invisible
   instance.mesh.material.opacity = 0.1;
+
+
+  // Start timer that will animate the particles
   uot(p => {
-    
+    // Progress the animation
     time = p;
+    // Opacity in
     if (p < 0.3) {
-      
       if (instance.mesh.material.opacity >= 1) {
         return;
       } else {
-        console.log('in', instance.mesh.material.opacity);
         instance.mesh.material.opacity =
           instance.mesh.material.opacity + instance.mesh.material.opacity / 10;
       }
     }
-    
-    if (p > 0.7) {
-              console.log('out', instance.mesh.material.opacity);
-
+    // Opacity out
+    if (p > 0.5) {
       if (instance.mesh.material.opacity <= 0) {
         return;
       } else {
-        console.log('out', instance.mesh.material.opacity);
         instance.mesh.material.opacity = instance.mesh.material.opacity - instance.mesh.material.opacity / 100;
       }
     }
+    // remnove mesh and create a new one
     if (p === 1) {
       scene.remove(instance.mesh);
       createMovingMosquitos();
     }
-  }, 12000);
+  }, 20000);
 }
 
+// First time creating the mosquitos
 createMovingMosquitos();
-
+// Start the animation
 function animate() {
   requestAnimationFrame(animate);
-
   uniforms.time.value = time;
   renderer.render(scene, camera);
 }
-
 animate();
 
+
+
+// Chapters
 const screenTop = window.pageYOffset || document.documentElement.scrollTop;
 const screenBottom =
   (window.pageYOffset || document.documentElement.scrollTop) +
   window.innerHeight;
 
 // SVG Animations
-function Drawing(id) {
+function Drawing(id, audio) {
+  this.playing = false;
+  this.audio = audio;
   this.id = id;
   this.animation = anime
     .timeline({
@@ -234,37 +245,63 @@ function Drawing(id) {
 }
 
 var drawings = [];
-drawings.push(new Drawing("drawingOne"));
-drawings.push(new Drawing("drawingTwo"));
-drawings.push(new Drawing("drawingThree"));
-drawings.push(new Drawing("drawingFour"));
-drawings.push(new Drawing("drawingFive"));
+drawings.push(new Drawing("drawingOne", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
+drawings.push(new Drawing("drawingTwo", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
+drawings.push(new Drawing("drawingThree", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
+drawings.push(new Drawing("drawingFour", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
+drawings.push(new Drawing("drawingFive", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
 
-// Write this in a way it ties in with the OOF
-function drawChapters() {
-  let animatedEls = document.querySelectorAll(".animate_svg");
-  Array.prototype.forEach.call(animatedEls, function(element, index) {
-    const rect = element.getBoundingClientRect();
-    const boxTop = rect.top + screenTop;
-    const boxHeight = rect.height;
-    const boxBottom = boxTop + boxHeight;
-    const ani = drawings[element.id].animation;
-    ani.seek(ani.duration * 100);
-    if (boxTop > screenTop) {
-      console.log(boxTop, screenTop);
-      if (boxBottom < screenBottom - 200) {
-        ani.seek(ani.duration * 100);
-      } else if (boxTop < screenBottom) {
-        let percent = (screenBottom - boxTop - 200) / boxHeight;
-        ani.seek(ani.duration * percent);
-      }
-    } else if (boxBottom > screenTop) {
-      let percent = (screenBottom - boxTop - 200) / boxHeight;
-      ani.seek(ani.duration * percent);
-    }
-  });
+
+// Set the begin durations to zero
+function setDurationtoZero() {
+  const arrayLength = drawings.length;
+  for (let i = 0; i < arrayLength; i++) {
+    let element = drawings[i].element;
+    const ani = drawings[i].animation;
+    ani.seek(0);
+    
+  }
+}
+setDurationtoZero()
+
+function playChapterAudio(id) {
+  // stop player
+  chaptersAudio.stop()
+
+  // indicate that nothing is playing
+  const arrayLength = drawings.length;
+  for (let i = 0; i < arrayLength; i++) {
+    drawings[i].playing = false;
+  }
+
+  // set source with audio from active chapter
+  chaptersAudio.source = {
+    type: 'audio',
+    title: 'Example title',
+    autoplay: true,
+    loop: true,
+    sources: [
+        {
+            src: drawings[id].audio,
+            type: 'audio/mp3',
+        }
+    ]
+  };
+
+  // set value of playing for this chapter to true;
+  drawings[id].playing = true;
 }
 
+
+// function fadeVolume(modifier, id) {
+//   uot(p => {
+//     itemaudio.volume = audio.volume + p*modifier;
+//     if (p === 1) {
+//     }
+//   }, 1000);
+// }
+
+// loop over chapters and animate the svg paths on scroll
 function loopDrawings() {
   const arrayLength = drawings.length;
   for (let i = 0; i < arrayLength; i++) {
@@ -274,12 +311,31 @@ function loopDrawings() {
     const boxHeight = rect.height;
     const boxBottom = boxTop + boxHeight;
     const ani = drawings[i].animation;
-    ani.seek(ani.duration * 100);
     if (boxTop > screenTop) {
-      if (boxBottom < screenBottom - 200) {
-        ani.seek(ani.duration * 100);
+      if (boxBottom < screenBottom - 0) {
+        // ani.seek(ani.duration * 100);
       } else if (boxTop < screenBottom) {
         let percent = (screenBottom - boxTop - 200) / boxHeight;
+
+        if(percent > 0.2 && drawings[i].playing === false) {
+
+          
+          playChapterAudio(i)
+          
+  
+          
+
+
+        }
+
+        
+
+        // AUDIO: If in view:
+            // set playing = true
+            // set Source to drawings[i].audio;
+            // start audio
+            // increase volume to 100
+
         ani.seek(ani.duration * percent);
       }
     } else if (boxBottom > screenTop) {
@@ -289,32 +345,10 @@ function loopDrawings() {
   }
 }
 
-// function loopDrawings() {
-//   Object.keys(drawings).map(function(objectKey, index) {
-
-//     const drawing = drawings[objectKey];
-//     drawing.seekPercent();
-// });
-// }
-
-// function resetDrawings(){
-
-//   Object.keys(drawings).map(function(objectKey, index) {
-//     const drawing = drawings[objectKey];
-//     console.log(drawing)
-//     drawing.animation.seek(.4);
-
-// });
-// }
-
-// resetDrawings();
-
 window.addEventListener("scroll", function(e) {
-  // drawChapters()
-
-  // drawings[0].seekPercent();
   loopDrawings();
 });
+
 
 // Nav toggle
 function toggleNav() {
@@ -325,6 +359,7 @@ function toggleNav() {
 }
 const link = document.getElementById("navToggle");
 link.addEventListener("click", toggleNav);
+
 
 // Video toggle
 let player = null;
@@ -368,11 +403,17 @@ function toggleVideo(id) {
   }
 }
 
+
+
+
+
 // Start video
 const playButtons = document.querySelectorAll(".chapter__play");
 playButtons.forEach(function(elem) {
   elem.addEventListener("click", function() {
     toggleVideo(this.dataset.value);
+    navToggle.classList.toggle("active");
+
   });
 });
 
@@ -384,7 +425,7 @@ closeVideo.addEventListener("click", function() {
 
 // Go to chapter from nav
 function goToChapter(id) {
-  console.log(id);
+  
   toggleNav();
   document.getElementById(id).scrollIntoView({
     behavior: "smooth"
@@ -396,4 +437,42 @@ navButtons.forEach(function(elem) {
   elem.addEventListener("click", function() {
     goToChapter(this.dataset.value);
   });
+});
+
+
+
+
+function toggleAllBGAudio() {
+  chaptersAudio.toggle()
+  mosquitoAudio.toggle()
+}
+
+
+
+// Stop video
+
+
+
+// const audioButtons = document.querySelectorAll(".audio__button");
+// audioButtons.forEach(function(elem) {
+//   console.log(elem)
+//   elem.addEventListener("click", function() {
+
+//     elem.classList.toggle("active");
+
+//   });
+// });
+
+const toggleBGAudio = document.getElementById("bgAudioToggle");
+toggleBGAudio.addEventListener("click", function() {
+  toggleAllBGAudio();
+
+  const audioButtons = document.querySelectorAll(".audio__button");
+  audioButtons.forEach(function(elem) {
+    elem.classList.toggle("active");
+
+});
+
+
+
 });

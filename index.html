@@ -63,16 +63,29 @@
 
 <body id="main">
   <div class="container">
-    <audio crossorigin playsinline>
+
+
+    <div class="audio__player">
+        <!-- <audio id="mosquitos" crossorigin playsinline>
       <source src="https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3" type="audio/mp3">
       <source src="https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.ogg" type="audio/ogg">
-    </audio>
+    </audio> -->
+
+      <audio
+        id="chaptersAudio"
+        crossorigin
+        playsinline
+      >
+
+      </audio>
+    </div>
+
   </div>
 
-    <div
+  <div
     id="particles"
     class="particles__container"
-  ></div> 
+  ></div>
 
   <section
     id="home"
@@ -81,15 +94,13 @@
 
     <img
       class="intro__image"
-      src="<%= require('./src/assets/title.png') %>"
+      src="<%= require('./src/assets/logo.png') %>"
     >
     <p class="intro__subtitle ">Malaria is part of us</p>
-    
+
     <q class="intro__quote">This is <span class="utils__bold">malaria</span>, this is what it means to us.
       These are the stories that unfold from that single bite</q>
-    <button
-      class="intro__player utils__uppercase"
-    >
+    <button class="intro__player utils__uppercase">
       <span>Play Intro</span>
       <svg
         class="player__button"
@@ -116,26 +127,22 @@
         </g>
       </svg>
     </button>
-
   </section>
-
-
-
 
   <div class="chapter__pre">It damages our health...</div>
   <section
     id="chapterOne"
     class="animatedLine chapter chapter__container"
   >
-  
+
 
     <div class="animatedLine chapter__left">
       <div
         class="animatedLine chapter__svgcontainer"
-        id="imageTwo"
+        id="imageOne"
       >
         <svg
-          id="drawingTwo"
+          id="drawingOne"
           class="chapter__svg animate_svg"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -267,34 +274,39 @@
         The Night Shift
       </h2>
       <span class="chapter__subtitle">by Abdul Samba Brima</span>
-      <div class="chapter__play" onclick="toggleVideo.call(this.event, '76979871')">PLAY STORY
+      <div
+        class="chapter__play"
+        onclick="toggleVideo.call(this.event, '76979871')"
+      >PLAY STORY
         <svg
-        class="player__button"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 27.37 27.37"
-      >
-        <g
-          id="Layer_2"
-          data-name="Layer 2"
+          class="player__button"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 27.37 27.37"
         >
           <g
-            id="Layer_1-2"
-            data-name="Layer 1"
+            id="Layer_2"
+            data-name="Layer 2"
           >
-            <path
-              class="cls-1"
-              d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
-            />
-            <polygon
-              class="cls-1"
-              points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
-            />
+            <g
+              id="Layer_1-2"
+              data-name="Layer 1"
+            >
+              <path
+                class="cls-1"
+                d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
+              />
+              <polygon
+                class="cls-1"
+                points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
+              />
+            </g>
           </g>
-        </g>
-      </svg>
-    </div>
+        </svg>
+      </div>
 
-      <p class="animatedLine chapter__descr">Doctors on the Night Shift at Ola During Children’s Hospital in Freetown are on the frontline of the fight against malaria. Sierra Leone has one of the world’s highest rates of malaria and young children are particularly vulnerable. 
+      <p class="animatedLine chapter__descr">Doctors on the Night Shift at Ola During Children’s Hospital in Freetown
+        are on the frontline of the fight against malaria. Sierra Leone has one of the world’s highest rates of malaria
+        and young children are particularly vulnerable.
       </p>
     </div>
   </section>
@@ -305,11 +317,11 @@
     id="chapterTwo"
     class="animatedLine chapter chapter__container"
   >
-    
+
     <div class="animatedLine chapter__left">
       <div
         class="animatedLine chapter__svgcontainer"
-        id="imageOne"
+        id="imageTwo"
       >
 
 
@@ -317,7 +329,7 @@
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 960 1482.22"
-          id="drawingOne"
+          id="drawingTwo"
           class="chapter__svg animate_svg"
         >
           <defs>
@@ -510,34 +522,39 @@
       <h2 class="animatedLine chapter__title">
         The Car Wash Boys
       </h2>
-      <span class="chapter__subtitle">by Amjata Bayoh      </span>
-      <div class="chapter__play" data-value="76979871">PLAY STORY
+      <span class="chapter__subtitle">by Amjata Bayoh </span>
+      <div
+        class="chapter__play"
+        data-value="76979871"
+      >PLAY STORY
         <svg
-        class="player__button"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 27.37 27.37"
-      >
-        <g
-          id="Layer_2"
-          data-name="Layer 2"
+          class="player__button"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 27.37 27.37"
         >
           <g
-            id="Layer_1-2"
-            data-name="Layer 1"
+            id="Layer_2"
+            data-name="Layer 2"
           >
-            <path
-              class="cls-1"
-              d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
-            />
-            <polygon
-              class="cls-1"
-              points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
-            />
+            <g
+              id="Layer_1-2"
+              data-name="Layer 1"
+            >
+              <path
+                class="cls-1"
+                d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
+              />
+              <polygon
+                class="cls-1"
+                points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
+              />
+            </g>
           </g>
-        </g>
-      </svg>
-    </div>
-      <p class="animatedLine chapter__descr">The car wash boys work outside throughout the night. Exposed to mosquitoes, they get malaria regularly. But if they don’t work, they won’t get the money they rely on to feed themselves and their families.
+        </svg>
+      </div>
+      <p class="animatedLine chapter__descr">The car wash boys work outside throughout the night. Exposed to mosquitoes,
+        they get malaria regularly. But if they don’t work, they won’t get the money they rely on to feed themselves and
+        their families.
       </p>
     </div>
   </section>
@@ -554,16 +571,16 @@
     <div class="animatedLine chapter__left">
       <div
         class="animatedLine chapter__svgcontainer"
-        id="imageFive"
+        id="imageThree"
       >
         <svg
-          id="drawingFive"
+          id="drawingThree"
           class="chapter__svg animate_svg"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 1093 1529.35"
         >
-       
+
           <title>The Riskiest Place to Give Birth</title>
           <g
             id="Layer_2"
@@ -598,39 +615,44 @@
         The Riskiest Place to Give Birth
       </h2>
       <span class="chapter__subtitle">by Elizabeth Katta</span>
-      <div class="chapter__play" onclick="toggleVideo.call(this.event, '76979871')">PLAY STORY
+      <div
+        class="chapter__play"
+        onclick="toggleVideo.call(this.event, '76979871')"
+      >PLAY STORY
         <svg
-        class="player__button"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 27.37 27.37"
-      >
-        <g
-          id="Layer_2"
-          data-name="Layer 2"
+          class="player__button"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 27.37 27.37"
         >
           <g
-            id="Layer_1-2"
-            data-name="Layer 1"
+            id="Layer_2"
+            data-name="Layer 2"
           >
-            <path
-              class="cls-1"
-              d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
-            />
-            <polygon
-              class="cls-1"
-              points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
-            />
+            <g
+              id="Layer_1-2"
+              data-name="Layer 1"
+            >
+              <path
+                class="cls-1"
+                d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
+              />
+              <polygon
+                class="cls-1"
+                points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
+              />
+            </g>
           </g>
-        </g>
-      </svg>
-    </div>
-      <p class="animatedLine chapter__descr">Sierra Leone is the riskiest places in the world to give birth and malaria increases the risk of death during pregnancy and childbirth. Elizabeth Katta had malaria four times during her pregnancy and gave birth in the midst of a malaria fever.
+        </svg>
+      </div>
+      <p class="animatedLine chapter__descr">Sierra Leone is the riskiest places in the world to give birth and malaria
+        increases the risk of death during pregnancy and childbirth. Elizabeth Katta had malaria four times during her
+        pregnancy and gave birth in the midst of a malaria fever.
       </p>
     </div>
   </section>
 
 
-  
+
 
   <div class="chapter__pre">...and our children</div>
 
@@ -698,33 +720,38 @@
         A Birthday Commemoration
       </h2>
       <span class="chapter__subtitle">by Emmanuel Bundu</span>
-      <div class="chapter__play" onclick="toggleVideo.call(this.event, '76979871')">PLAY STORY
+      <div
+        class="chapter__play"
+        onclick="toggleVideo.call(this.event, '76979871')"
+      >PLAY STORY
         <svg
-        class="player__button"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 27.37 27.37"
-      >
-        <g
-          id="Layer_2"
-          data-name="Layer 2"
+          class="player__button"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 27.37 27.37"
         >
           <g
-            id="Layer_1-2"
-            data-name="Layer 1"
+            id="Layer_2"
+            data-name="Layer 2"
           >
-            <path
-              class="cls-1"
-              d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
-            />
-            <polygon
-              class="cls-1"
-              points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
-            />
+            <g
+              id="Layer_1-2"
+              data-name="Layer 1"
+            >
+              <path
+                class="cls-1"
+                d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
+              />
+              <polygon
+                class="cls-1"
+                points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
+              />
+            </g>
           </g>
-        </g>
-      </svg>
-    </div>
-      <p class="animatedLine chapter__descr">At a birthday celebration, Emmanuel commemorates his son Shadrach who died of malaria last year. It’s Shadrach’s first birthday since his death and Emmanuel is determined not to spend it on his own.
+        </svg>
+      </div>
+      <p class="animatedLine chapter__descr">At a birthday celebration, Emmanuel commemorates his son Shadrach who died
+        of malaria last year. It’s Shadrach’s first birthday since his death and Emmanuel is determined not to spend it
+        on his own.
       </p>
     </div>
   </section>
@@ -743,10 +770,10 @@
     <div class="animatedLine chapter__left">
       <div
         class="animatedLine chapter__svgcontainer"
-        id="imageThree"
+        id="imageFive"
       >
         <svg
-          id="drawingThree"
+          id="drawingFive"
           class="chapter__svg animate_svg"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -975,33 +1002,39 @@
         A Clean Sweep
       </h2>
       <span class="chapter__subtitle">by Mohamed Kamara</span>
-      <div class="chapter__play" onclick="toggleVideo.call(this.event, '76979871')">PLAY STORY
+      <div
+        class="chapter__play"
+        onclick="toggleVideo.call(this.event, '76979871')"
+      >PLAY STORY
         <svg
-        class="player__button"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 27.37 27.37"
-      >
-        <g
-          id="Layer_2"
-          data-name="Layer 2"
+          class="player__button"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 27.37 27.37"
         >
           <g
-            id="Layer_1-2"
-            data-name="Layer 1"
+            id="Layer_2"
+            data-name="Layer 2"
           >
-            <path
-              class="cls-1"
-              d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
-            />
-            <polygon
-              class="cls-1"
-              points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
-            />
+            <g
+              id="Layer_1-2"
+              data-name="Layer 1"
+            >
+              <path
+                class="cls-1"
+                d="M13.68,26.87a13.19,13.19,0,1,1,11-5.93"
+              />
+              <polygon
+                class="cls-1"
+                points="19.65 13.63 10.62 8.41 10.62 18.84 19.65 13.63"
+              />
+            </g>
           </g>
-        </g>
-      </svg>
-    </div>
-      <p class="animatedLine chapter__descr">Monthly mandatory cleaning days are part of a national effort to get rid of rubbish and stop stagnant pools of water forming in blocked gutters, where mosquitoes breed. However, many of Freetown’s slum communities face an almost-impossible struggle to keep their community clean. Mohamed Kamara meets the Mayor of Freetown to find out about her plans to improve the city’s sanitation systems.
+        </svg>
+      </div>
+      <p class="animatedLine chapter__descr">Monthly mandatory cleaning days are part of a national effort to get rid of
+        rubbish and stop stagnant pools of water forming in blocked gutters, where mosquitoes breed. However, many of
+        Freetown’s slum communities face an almost-impossible struggle to keep their community clean. Mohamed Kamara
+        meets the Mayor of Freetown to find out about her plans to improve the city’s sanitation systems.
       </p>
     </div>
   </section>
@@ -1013,6 +1046,82 @@
 
 
 
+  <div
+    id="bgAudioToggle"
+    class="audio__buttons"
+  >
+    <div class="audio__button audio__controls--on active">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 47 38.44"
+      >
+        <g
+          id="Layer_2"
+          data-name="Layer 2"
+        >
+          <g
+            id="Layer_2-2"
+            data-name="Layer 2"
+          >
+            <path
+              class="cls-1"
+              d="M8.51,29.24H2.28A2.28,2.28,0,0,1,0,27V11.49A2.28,2.28,0,0,1,2.28,9.21H8.51a2.29,2.29,0,0,1,2.28,2.28V27A2.29,2.29,0,0,1,8.51,29.24ZM3.08,26.16H7.7V12.29H3.08Z"
+            />
+            <path
+              class="cls-1"
+              d="M20.83,38.44a2.24,2.24,0,0,1-1.43-.51l-11.13-9,2-2.39,9.81,8V4l-9.81,8-2-2.39L19.4.51a2.28,2.28,0,0,1,3.71,1.77V36.16a2.28,2.28,0,0,1-2.28,2.28Z"
+            />
+            <path
+              class="cls-1"
+              d="M27,29.23l-1.66-2.6a9.23,9.23,0,0,0,3.91-7.83,9.44,9.44,0,0,0-3.58-7.62l1.81-2.49A12.37,12.37,0,0,1,32.36,18.8,12.34,12.34,0,0,1,27,29.23Z"
+            />
+            <path
+              class="cls-1"
+              d="M33.2,32.31l-1.67-2.59c3.36-2.17,5.45-6.38,5.45-11A13,13,0,0,0,32,8.1l1.82-2.49a16.12,16.12,0,0,1,6.26,13.14C40.07,24.38,37.43,29.58,33.2,32.31Z"
+            />
+            <path
+              class="cls-1"
+              d="M40.27,35.29,38.33,32.9c3.45-2.79,5.59-8.23,5.59-14.2,0-5.62-2-10.9-5.12-13.79l2.08-2.28C44.71,6.14,47,12.15,47,18.7,47,25.57,44.42,31.93,40.27,35.29Z"
+            />
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="audio__button audio__controls--off ">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 41 38.6"
+      >
+        <g
+          id="Layer_2"
+          data-name="Layer 2"
+        >
+          <g
+            id="Layer_2-2"
+            data-name="Layer 2"
+          >
+            <path
+              class="cls-1"
+              d="M8.54,29.36H2.29A2.3,2.3,0,0,1,0,27.07V11.53A2.3,2.3,0,0,1,2.29,9.24H8.54a2.3,2.3,0,0,1,2.29,2.29V27.07A2.3,2.3,0,0,1,8.54,29.36Zm-5.45-3.1H7.74V12.34H3.09Z"
+            />
+            <path
+              class="cls-1"
+              d="M20.91,38.6a2.25,2.25,0,0,1-1.43-.52L8.31,29l1.95-2.4,9.85,8V4l-9.85,8L8.31,9.59,19.48.52A2.23,2.23,0,0,1,21.9.23a2.25,2.25,0,0,1,1.31,2.06v34a2.25,2.25,0,0,1-1.31,2.06A2.31,2.31,0,0,1,20.91,38.6Z"
+            />
+            <path
+              class="cls-1"
+              d="M29,25.83a1.55,1.55,0,0,1-1.09-2.64L38.36,12.75a1.54,1.54,0,0,1,2.19,0,1.56,1.56,0,0,1,0,2.19L30.1,25.38A1.53,1.53,0,0,1,29,25.83Z"
+            />
+            <path
+              class="cls-1"
+              d="M39.45,25.83a1.55,1.55,0,0,1-1.09-.45L27.92,14.94a1.55,1.55,0,1,1,2.18-2.19L40.55,23.19a1.55,1.55,0,0,1-1.1,2.64Z"
+            />
+          </g>
+        </g>
+      </svg>
+      <span class="audio__text">Turn on audio for a better experience.</span>
+    </div>
+  </div>
 
 
 
@@ -1038,21 +1147,24 @@
 
         <h2>About</h2>
         <p>People say if you haven’t had malaria, you’re not a true Sierra Leonean.</p>
-        <p>We are a network of citizen reporters in Sierra Leone who have spent the last year gathering stories from people affected by malaria in all walks of life.</p>
-        <p>These films chart how the stories of our lives here - of school days, love, work and parenthood - are wrapped up in the story of this dangerous killer.</p>
+        <p>We are a network of citizen reporters in Sierra Leone who have spent the last year gathering stories from
+          people affected by malaria in all walks of life.</p>
+        <p>These films chart how the stories of our lives here - of school days, love, work and parenthood - are wrapped
+          up in the story of this dangerous killer.</p>
 
 
         <h2>Credits</h2>
         <p>An <strong>On Our Radar</strong> production
-        <p><strong>Reporting</strong> by Amjata Bayoh, Abdul Samba Brima, Emmanuel Bundu, Mohamed Kamara, Elizabeth Katta, and the rest of the On Our Radar citizen journalism network in Sierra Leone.</p>
-        <p><strong>Produced, filmed and directed</strong></strong> by Paul Myles and Zoe Jewell</p>
-        <p><strong>Associate producer & network coordinator</strong> Abdul Samba Brima</p>
-        <p><strong>Video editing</strong> by Brad Hayward</p>
-        <p><strong>Web design & development</strong> by Isacco Chiaf and Maarten Lauwaert</p>
-        <p><strong>Production support</strong> Jill Jankowski and Samah Ahmed</p>
-        <p><strong>With thanks to</strong> Morris Marah, Sensi Tech Hub and TQ</p>
-        <p>With support from the <strong>Comic Relief</strong> and <strong>GSK</strong> partnership</p>
-        
+          <p><strong>Reporting</strong> by Amjata Bayoh, Abdul Samba Brima, Emmanuel Bundu, Mohamed Kamara, Elizabeth
+            Katta, and the rest of the On Our Radar citizen journalism network in Sierra Leone.</p>
+          <p><strong>Produced, filmed and directed</strong></strong> by Paul Myles and Zoe Jewell</p>
+          <p><strong>Associate producer & network coordinator</strong> Abdul Samba Brima</p>
+          <p><strong>Video editing</strong> by Brad Hayward</p>
+          <p><strong>Web design & development</strong> by Isacco Chiaf and Maarten Lauwaert</p>
+          <p><strong>Production support</strong> Jill Jankowski and Samah Ahmed</p>
+          <p><strong>With thanks to</strong> Morris Marah, Sensi Tech Hub and TQ</p>
+          <p>With support from the <strong>Comic Relief</strong> and <strong>GSK</strong> partnership</p>
+
       </div>
       <div class="nav__right">
 
@@ -1763,13 +1875,12 @@
   <div
     class="video__overlay"
     id="videoOverlay"
-
   >
 
     <div
       class="video__button"
       id="videoToggle"
-    data-value="close"    
+      data-value="close"
     >
       <span class="top"></span>
       <span class="middle"></span>
