@@ -77,7 +77,24 @@ q.intro__quote {
   font-weight: 100;
 }
 
+.nav__left h2 {
+  font-family: essonnes-headline, serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size:calc(10px + 1.2vw);
+}
 
+.nav__left p {
+  line-height: 1.5em;
+  font-weight: 100;
+  font-style: normal;
+  font-size:calc(10px + .2vw);
+}
+
+.nav__left strong {
+  font-family: essonnes-headline, serif;
+  font-weight: 700;
+}
 
 // Utils
 
@@ -87,4 +104,11 @@ q.intro__quote {
 
 .utils__uppercase {
   text-transform: uppercase;
+}
+
+.chapter__pre {
+  font-family: essonnes-headline, serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size:calc(10px + 1.2vw);
 }

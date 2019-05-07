@@ -19,6 +19,7 @@
 
 
 
+
 .chapter__left {
   position: relative;
   flex: 7 1 0;
@@ -30,9 +31,7 @@
   z-index: 100;
 }
 
-.chapter__svgcontainer {
-  
-}
+
 
 .chapter__right {
   position: relative;
@@ -64,17 +63,17 @@ top: -20%;
   stroke-width:1px;
 }
 
-.chapter__title {
-  
-}
 
 @media only screen and (max-width: 600px) {
   .chapter__container {
-    display: flex;
-    flex-flow: column;
+    display: block;
     width: 90%;
-    margin: 100vh 5%;
-    max-height: 80vh;
+    margin: 10vh 5%;
+    
+    
+  }
+  .chapter__pre {
+    margin: 10vh 0;
   }
 
   .chapter__right {
@@ -122,4 +121,12 @@ top: -20%;
       transition: stroke 0.25s ease;
     }
   }
+}
+
+
+.chapter__pre {
+  width: 100%;
+  text-align: center;
+  color: $accent;
+
 }

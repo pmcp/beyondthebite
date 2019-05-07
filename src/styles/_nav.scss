@@ -88,7 +88,7 @@
 
 .nav__container {
   display: flex;
-
+  width: 100%;
   justify-content: center;
   flex-flow: row nowrap;
 }
@@ -98,6 +98,19 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+  align-items: flex-start;
+  padding-left: 3em;
+}
+
+.nav__left h2 {
+  max-width: 500px;
+  color: $accent
+}
+
+.nav__left p {
+  
+  max-width: 500px;
+  color: $light
 }
 
 .nav__right {
