@@ -228,7 +228,7 @@ function Drawing(id, audio) {
     .add({
       targets: "#" + id + " path.animatedRoad",
       strokeDashoffset: [anime.setDashoffset, 0],
-      duration: 10000,
+      duration: 50000,
       easing: "easeInOutSine"
     })
     .add({
