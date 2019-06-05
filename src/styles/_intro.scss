@@ -34,11 +34,14 @@ position: relative;
   justify-content: space-around;
   border: none;
   cursor: pointer;
-
-  
-
 }
 
+.intro__post {
+  margin-top: 10rem;
+  width: 100%;
+  text-align: center;
+  color: $accent;
+}
 
 svg.player__button {
   height: 1.2em;  

@@ -1,22 +1,38 @@
 require("normalize.css/normalize.css");
 require("./styles/index.scss");
 
+const audio1 = require("./assets/audio/1.mp3");
+const audio2 = require("./assets/audio/2.mp3");
+const audio3 = require("./assets/audio/3.mp3");
+const audio4 = require("./assets/audio/4.mp3");
+const audio5 = require("./assets/audio/5.mp3");
+const mosquito = require("./assets/audio/mosq.mp3");
+
 import anime from "animejs";
 import { getArrayWithNoise, getRandomBetween } from "./utils";
 
 // Audio Player: Mosquitos
-// const mosquitoAudio = new Plyr("#mosquitos", {
-//   autoplay: true
-
-// });
-
-// mosquitoAudio.loop = true;
+const mosquitoAudio = new Plyr("#mosquitoAudio", {});
+mosquitoAudio.source = {
+  type: 'audio',
+  autoplay: true,
+  loop: true,
+  sources: [
+      {
+          src: mosquito,
+          type: 'audio/mp3',
+      }
+  ]
+};
+mosquitoAudio.volume = 0.1;
 
 
 // Audio Player: Chapters
 const chaptersAudio = new Plyr("#chaptersAudio", {});
 
 
+
+let mute = false;
 
 
 // ThreeJS: Mosquitos
@@ -149,7 +165,7 @@ function createMovingMosquitos() {
   time = 0;
   // Create the mesh
   createInstance({
-    geometry: new THREE.CircleGeometry(0.03, 12, 1),
+    geometry: new THREE.CircleGeometry(0.06, 12, 1),
     material: new THREE.MeshBasicMaterial({
       transparent: true,
       opacity: 1,
@@ -157,7 +173,7 @@ function createMovingMosquitos() {
       flatShading: true
     }),
     multiplier: 2000,
-    duration: 4.4,
+    duration: 2.4,
     points: [
       () => getArrayWithNoise([-10, 0, 0], 4),
       () => getArrayWithNoise([-2.5, -10, 0], 4),
@@ -245,11 +261,11 @@ function Drawing(id, audio) {
 }
 
 var drawings = [];
-drawings.push(new Drawing("drawingOne", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
-drawings.push(new Drawing("drawingTwo", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
-drawings.push(new Drawing("drawingThree", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
-drawings.push(new Drawing("drawingFour", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
-drawings.push(new Drawing("drawingFive", "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3"));
+drawings.push(new Drawing("drawingOne", audio1));
+drawings.push(new Drawing("drawingTwo", audio2));
+drawings.push(new Drawing("drawingThree", audio3));
+drawings.push(new Drawing("drawingFour", audio4));
+drawings.push(new Drawing("drawingFive", audio5));
 
 
 // Set the begin durations to zero
@@ -265,33 +281,35 @@ function setDurationtoZero() {
 setDurationtoZero()
 
 function playChapterAudio(id) {
-  // stop player
-  chaptersAudio.stop()
+  if(mute) {
+    // User muted the audio, so do nothing
+  } else {
+    // stop player
+    chaptersAudio.stop()
 
-  // indicate that nothing is playing
-  const arrayLength = drawings.length;
-  for (let i = 0; i < arrayLength; i++) {
-    drawings[i].playing = false;
+    // indicate that nothing is playing
+    const arrayLength = drawings.length;
+    for (let i = 0; i < arrayLength; i++) {
+      drawings[i].playing = false;
+    }
+
+    // set source with audio from active chapter
+    chaptersAudio.source = {
+      type: 'audio',
+      autoplay: true,
+      loop: true,
+      sources: [
+          {
+              src: drawings[id].audio,
+              type: 'audio/mp3',
+          }
+      ]
+    };
+
+    // set value of playing for this chapter to true;
+    drawings[id].playing = true;
   }
-
-  // set source with audio from active chapter
-  chaptersAudio.source = {
-    type: 'audio',
-    title: 'Example title',
-    autoplay: true,
-    loop: true,
-    sources: [
-        {
-            src: drawings[id].audio,
-            type: 'audio/mp3',
-        }
-    ]
-  };
-
-  // set value of playing for this chapter to true;
-  drawings[id].playing = true;
 }
-
 
 // function fadeVolume(modifier, id) {
 //   uot(p => {
@@ -318,24 +336,8 @@ function loopDrawings() {
         let percent = (screenBottom - boxTop - 200) / boxHeight;
 
         if(percent > 0.2 && drawings[i].playing === false) {
-
-          
           playChapterAudio(i)
-          
-  
-          
-
-
         }
-
-        
-
-        // AUDIO: If in view:
-            // set playing = true
-            // set Source to drawings[i].audio;
-            // start audio
-            // increase volume to 100
-
         ani.seek(ani.duration * percent);
       }
     } else if (boxBottom > screenTop) {
@@ -361,59 +363,58 @@ const link = document.getElementById("navToggle");
 link.addEventListener("click", toggleNav);
 
 
+function stopAllBGAudio() {
+  if(chaptersAudio.playing) {
+    chaptersAudio.stop()
+  }
+  
+  if(mosquitoAudio.playing) {
+    mosquitoAudio.stop()
+  }
+}
+
+// let vimeoPlayer = new Plyr("#vimeoPlayer", {});
+
+let vimeoPlayer;
+
+// const vimeoPlayerID = document.getElementById("vimeoPlayer");
 // Video toggle
-let player = null;
 
 function toggleVideo(id) {
-  if (audio.playing === true) {
-    uot(p => {
-      audio.volume = 1 - p;
-      if (p === 1) {
-        audio.stop();
-      }
-    }, 2000);
+  console.log(id)
 
-    // audio
-  } else {
-    audio.volume = 0;
-    audio.play();
-    uot(p => {
-      audio.volume = 0 + p;
-    }, 2000);
-  }
+  // Stop all audio
+  stopAllBGAudio();
+  mute = true;
+  
+
+
+  
+
 
   const videoToggle = document.getElementById("videoToggle");
   videoToggle.classList.toggle("active");
   const videoOverlay = document.getElementById("videoOverlay");
   videoOverlay.classList.toggle("open");
-
-  if (id === "close") {
-    player.stop();
+  
+  if (id === "close" ) {
+    vimeoPlayer.destroy();
   } else {
-    player = new Plyr("#player", {
-      captions: { active: true },
-      sources: [
-        {
-          provider: "vimeo"
-        }
-      ]
-    });
-    let element = document.getElementById("player");
-    element.setAttribute("data-plyr-embed-id", id);
+    
+  document.getElementById("vimeoPlayer").setAttribute("data-plyr-embed-id", id);
+  vimeoPlayer = new Plyr("#vimeoPlayer", {});
+
+    
+  
+    
   }
 }
-
-
-
-
 
 // Start video
 const playButtons = document.querySelectorAll(".chapter__play");
 playButtons.forEach(function(elem) {
   elem.addEventListener("click", function() {
     toggleVideo(this.dataset.value);
-    navToggle.classList.toggle("active");
-
   });
 });
 
@@ -443,8 +444,8 @@ navButtons.forEach(function(elem) {
 
 
 function toggleAllBGAudio() {
-  chaptersAudio.toggle()
-  mosquitoAudio.toggle()
+  chaptersAudio.togglePlay()
+  mosquitoAudio.togglePlay()
 }
 
 
@@ -465,12 +466,12 @@ function toggleAllBGAudio() {
 
 const toggleBGAudio = document.getElementById("bgAudioToggle");
 toggleBGAudio.addEventListener("click", function() {
-  // toggleAllBGAudio();
+  mute = !mute;
+  toggleAllBGAudio();
 
   const audioButtons = document.querySelectorAll(".audio__button");
   audioButtons.forEach(function(elem) {
     elem.classList.toggle("active");
-
 });
 
 

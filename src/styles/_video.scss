@@ -2,13 +2,11 @@
   position: fixed;
   top: 5%;
 
-  left: 2%;
+  right: 2%;
 
   cursor: pointer;
   z-index: 2000;
 }
-
-
 
 .video__button {
   position: fixed;
@@ -64,8 +62,6 @@
   }
 }
 
-
-
 .video__overlay {
   position: fixed;
   background: $dark;
@@ -74,7 +70,7 @@
   width: 100%;
   height: 0%;
   opacity: 0;
-  z-index: 900;
+  z-index: 5000;
   visibility: hidden;
   transition: opacity 0.35s, visibility 0.35s, height 0.35s;
   overflow: hidden;
@@ -84,8 +80,7 @@
     opacity: 1;
     visibility: visible;
     height: 100%;
-
-    z-index: 900;
+    z-index: 5000;
   }
 }
 
@@ -105,3 +100,6 @@
   }
 }
 
+.plyr {
+  margin-top: 8rem;
+}

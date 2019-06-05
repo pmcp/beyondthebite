@@ -72,6 +72,10 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+              test: /\.mp3$/,
+              loader: 'file-loader'
             }
         ]
     },
@@ -84,7 +88,7 @@ module.exports = {
         new CleanWebpackPlugin(buildPath),
         new FaviconsWebpackPlugin({
             // Your source logo
-            logo: './src/assets/icon.png',
+            logo: './src/assets/favicon.jpg',
             // The prefix for all image files (might be a folder or a name)
             prefix: 'icons-[hash]/',
             // Generate a cache file with control hashes and

@@ -1,5 +1,7 @@
 .audio__player {
   visibility: hidden;
+  position: absolute;
+  top: -2000px;
 }
 
 .audio__buttons {
