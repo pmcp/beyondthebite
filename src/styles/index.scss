@@ -1,28 +1,5 @@
-// Main tags
-
-
-$light: #F4F4ED;
-$dark: #2D2D2D;
-$accent: #cf8289;
-
-
-html, body {
-    height: 100%;
-    width: 100%;
-    font-size: 100%;
-    background-color: $light;
-    color: $dark;
-}
-
-
-// Fonts & links
-
-a {
-    color: inherit;
-}
-
-
-
+@import "_variables";
+@import "_main";
 @import "_type";
 @import "_nav";
 @import "_intro";
@@ -32,15 +9,3 @@ a {
 @import "_video";
 @import "_audio";
 @import "_plyr";
-
-
-
-// Testing
-
-#data {
-  position: fixed;
-  top: 0;
-  background: red;
-}
-
-

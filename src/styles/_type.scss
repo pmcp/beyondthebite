@@ -1,9 +1,9 @@
 p {
-  font-family: proxima-nova, sans-serif;
+  font-family: $font1;
 }
 
 h2.chapter__title {
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
   font-style: normal;
   font-size:calc(12px + 1.5vw);
@@ -11,22 +11,21 @@ h2.chapter__title {
 }
 
 .chapter__play {
-  font-family: proxima-nova, sans-serif;
+  font-family: $font1;
   font-weight: 100;
   font-size:calc(10px + .8vw);
 }
 
 .chapter__subtitle {
   color: $accent;
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
   font-style: normal;
   font-size:calc(12px + 1vw);
 }
 
-
 p.chapter__descr {
-  font-family: essonnes-text, serif;
+  font-family: $font3;
   line-height: 1.5em;
   font-weight: 100;
   font-style: normal;
@@ -34,14 +33,14 @@ p.chapter__descr {
 }
 
 p.intro__subtitle {
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
   font-style: normal;
   font-size:calc(10px + 1.2vw);
 }
 
 q.intro__quote {
-  font-family: proxima-nova, sans-serif;
+  font-family: $font1;
   font-weight: 100;
   font-size:calc(10px + .8vw);
 }
@@ -49,12 +48,12 @@ q.intro__quote {
 
 .intro__player {
   text-transform: uppercase;
-  font-family: proxima-nova, sans-serif;
+  font-family: $font1;
   font-weight: 100;
 }
 
 .nav__left h2 {
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
   font-style: normal;
   font-size:calc(10px + 1.2vw);
@@ -68,7 +67,7 @@ q.intro__quote {
 }
 
 .nav__left strong {
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
 }
 
@@ -83,21 +82,21 @@ q.intro__quote {
 }
 
 .intro__post {
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
   font-style: normal;
   font-size:calc(10px + 1.2vw);
 }
 
 .chapter__pre {
-  font-family: essonnes-headline, serif;
+  font-family: $font2;
   font-weight: 700;
   font-style: normal;
   font-size:calc(10px + 1.2vw);
 }
 
 .audio__text {
-  font-family: proxima-nova, sans-serif;
+  font-family: $font1;
   font-weight: 100;
   font-size:calc(10px + .4vw);
 }

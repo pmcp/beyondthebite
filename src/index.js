@@ -1,41 +1,47 @@
 require("normalize.css/normalize.css");
 require("./styles/index.scss");
 
+// Import audiofiles. These are used as background audio for the chapters
 const audio1 = require("./assets/audio/1.mp3");
 const audio2 = require("./assets/audio/2.mp3");
 const audio3 = require("./assets/audio/3.mp3");
 const audio4 = require("./assets/audio/4.mp3");
 const audio5 = require("./assets/audio/5.mp3");
+// This is the constant buzzing of the mosquitos you hear
 const mosquito = require("./assets/audio/mosq.mp3");
 
+// We use anime for the drawing of the svg. Could have done without, but the timeline function makes it fun to sync with the scroll
 import anime from "animejs";
+
+// File where utility functions are stored
 import { getArrayWithNoise, getRandomBetween } from "./utils";
 
-// Audio Player: Mosquitos
+// PLYR  (https://plyr.io/)
+
+// Initiatie Audio Player: Mosquitos
 const mosquitoAudio = new Plyr("#mosquitoAudio", {});
 mosquitoAudio.source = {
-  type: 'audio',
+  type: "audio",
   autoplay: true,
   loop: true,
   sources: [
-      {
-          src: mosquito,
-          type: 'audio/mp3',
-      }
+    {
+      src: mosquito,
+      type: "audio/mp3"
+    }
   ]
 };
 mosquitoAudio.volume = 0.1;
 
-
-// Audio Player: Chapters
+// Initiate Audio Player: Chapters
 const chaptersAudio = new Plyr("#chaptersAudio", {});
 
-
-
+// We start with the music unmuted
 let mute = false;
 
-
-// ThreeJS: Mosquitos
+// MOSQUITOS
+// We use ThreeJS and an extra library build on threejs called "phenomenon" to create the mosquitos.
+// There are a hundred ways to do this, we choose this one
 let instance;
 let uniforms = {
   time: {
@@ -141,7 +147,6 @@ renderer.setPixelRatio(window.devicePixelRatio >= 2 ? 2 : 1);
 document.querySelector("#particles").appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-
 const camera = new THREE.PerspectiveCamera(
   40,
   window.innerWidth / window.innerHeight,
@@ -184,8 +189,8 @@ function createMovingMosquitos() {
   // Set mesh opacity to almost invisible
   instance.mesh.material.opacity = 0.1;
 
-
   // Start timer that will animate the particles
+  // We use a small library called UOT to count from 0 to 100 in a specific timeframe
   uot(p => {
     // Progress the animation
     time = p;
@@ -203,7 +208,8 @@ function createMovingMosquitos() {
       if (instance.mesh.material.opacity <= 0) {
         return;
       } else {
-        instance.mesh.material.opacity = instance.mesh.material.opacity - instance.mesh.material.opacity / 100;
+        instance.mesh.material.opacity =
+          instance.mesh.material.opacity - instance.mesh.material.opacity / 100;
       }
     }
     // remnove mesh and create a new one
@@ -224,15 +230,14 @@ function animate() {
 }
 animate();
 
-
-
-// Chapters
+// CHAPTERS
+// For the chapters we have to calculate when they are come in, are in or get out of view
 const screenTop = window.pageYOffset || document.documentElement.scrollTop;
 const screenBottom =
   (window.pageYOffset || document.documentElement.scrollTop) +
   window.innerHeight;
 
-// SVG Animations
+// SVG Animations are done with animejs
 function Drawing(id, audio) {
   this.playing = false;
   this.audio = audio;
@@ -267,7 +272,6 @@ drawings.push(new Drawing("drawingThree", audio3));
 drawings.push(new Drawing("drawingFour", audio4));
 drawings.push(new Drawing("drawingFive", audio5));
 
-
 // Set the begin durations to zero
 function setDurationtoZero() {
   const arrayLength = drawings.length;
@@ -275,18 +279,16 @@ function setDurationtoZero() {
     let element = drawings[i].element;
     const ani = drawings[i].animation;
     ani.seek(0);
-    
   }
 }
-setDurationtoZero()
+setDurationtoZero();
 
 function playChapterAudio(id) {
-  if(mute) {
+  if (mute) {
     // User muted the audio, so do nothing
   } else {
     // stop player
-    chaptersAudio.stop()
-
+    chaptersAudio.stop();
     // indicate that nothing is playing
     const arrayLength = drawings.length;
     for (let i = 0; i < arrayLength; i++) {
@@ -295,14 +297,14 @@ function playChapterAudio(id) {
 
     // set source with audio from active chapter
     chaptersAudio.source = {
-      type: 'audio',
+      type: "audio",
       autoplay: true,
       loop: true,
       sources: [
-          {
-              src: drawings[id].audio,
-              type: 'audio/mp3',
-          }
+        {
+          src: drawings[id].audio,
+          type: "audio/mp3"
+        }
       ]
     };
 
@@ -335,8 +337,8 @@ function loopDrawings() {
       } else if (boxTop < screenBottom) {
         let percent = (screenBottom - boxTop - 200) / boxHeight;
 
-        if(percent > 0.2 && drawings[i].playing === false) {
-          playChapterAudio(i)
+        if (percent > 0.2 && drawings[i].playing === false) {
+          playChapterAudio(i);
         }
         ani.seek(ani.duration * percent);
       }
@@ -351,8 +353,8 @@ window.addEventListener("scroll", function(e) {
   loopDrawings();
 });
 
-
-// Nav toggle
+// NAVIGATION
+// The navigation gets toggled when clicked on the nav button
 function toggleNav() {
   const navToggle = document.getElementById("navToggle");
   navToggle.classList.toggle("active");
@@ -362,71 +364,8 @@ function toggleNav() {
 const link = document.getElementById("navToggle");
 link.addEventListener("click", toggleNav);
 
-
-function stopAllBGAudio() {
-  if(chaptersAudio.playing) {
-    chaptersAudio.stop()
-  }
-  
-  if(mosquitoAudio.playing) {
-    mosquitoAudio.stop()
-  }
-}
-
-// let vimeoPlayer = new Plyr("#vimeoPlayer", {});
-
-let vimeoPlayer;
-
-// const vimeoPlayerID = document.getElementById("vimeoPlayer");
-// Video toggle
-
-function toggleVideo(id) {
-  console.log(id)
-
-  // Stop all audio
-  stopAllBGAudio();
-  mute = true;
-  
-
-
-  
-
-
-  const videoToggle = document.getElementById("videoToggle");
-  videoToggle.classList.toggle("active");
-  const videoOverlay = document.getElementById("videoOverlay");
-  videoOverlay.classList.toggle("open");
-  
-  if (id === "close" ) {
-    vimeoPlayer.destroy();
-  } else {
-    
-  document.getElementById("vimeoPlayer").setAttribute("data-plyr-embed-id", id);
-  vimeoPlayer = new Plyr("#vimeoPlayer", {});
-
-    
-  
-    
-  }
-}
-
-// Start video
-const playButtons = document.querySelectorAll(".chapter__play");
-playButtons.forEach(function(elem) {
-  elem.addEventListener("click", function() {
-    toggleVideo(this.dataset.value);
-  });
-});
-
-// Stop video
-const closeVideo = document.getElementById("videoToggle");
-closeVideo.addEventListener("click", function() {
-  toggleVideo(this.dataset.value);
-});
-
 // Go to chapter from nav
 function goToChapter(id) {
-  
   toggleNav();
   document.getElementById(id).scrollIntoView({
     behavior: "smooth"
@@ -440,30 +379,57 @@ navButtons.forEach(function(elem) {
   });
 });
 
-
-
-
-function toggleAllBGAudio() {
-  chaptersAudio.togglePlay()
-  mosquitoAudio.togglePlay()
+function stopAllBGAudio() {
+  if (chaptersAudio.playing) {
+    chaptersAudio.stop();
+  }
+  if (mosquitoAudio.playing) {
+    mosquitoAudio.stop();
+  }
 }
 
+function toggleAllBGAudio() {
+  chaptersAudio.togglePlay();
+  mosquitoAudio.togglePlay();
+}
 
+// VIDEO
+// Create a PLYR video and set the right id.
+let vimeoPlayer;
+function toggleVideo(id) {
+  stopAllBGAudio();
+  mute = true;
 
-// Stop video
+  const videoToggle = document.getElementById("videoToggle");
+  videoToggle.classList.toggle("active");
+  const videoOverlay = document.getElementById("videoOverlay");
+  videoOverlay.classList.toggle("open");
 
+  if (id === "close") {
+    vimeoPlayer.destroy();
+  } else {
+    document
+      .getElementById("vimeoPlayer")
+      .setAttribute("data-plyr-embed-id", id);
+    vimeoPlayer = new Plyr("#vimeoPlayer", {});
+  }
+}
 
+// button to open video modal
+const playButtons = document.querySelectorAll(".chapter__play");
+playButtons.forEach(function(elem) {
+  elem.addEventListener("click", function() {
+    toggleVideo(this.dataset.value);
+  });
+});
 
-// const audioButtons = document.querySelectorAll(".audio__button");
-// audioButtons.forEach(function(elem) {
-//   console.log(elem)
-//   elem.addEventListener("click", function() {
+// Button to close video modal
+const closeVideo = document.getElementById("videoToggle");
+closeVideo.addEventListener("click", function() {
+  toggleVideo(this.dataset.value);
+});
 
-//     elem.classList.toggle("active");
-
-//   });
-// });
-
+// Button to toggle audio
 const toggleBGAudio = document.getElementById("bgAudioToggle");
 toggleBGAudio.addEventListener("click", function() {
   mute = !mute;
@@ -472,8 +438,5 @@ toggleBGAudio.addEventListener("click", function() {
   const audioButtons = document.querySelectorAll(".audio__button");
   audioButtons.forEach(function(elem) {
     elem.classList.toggle("active");
-});
-
-
-
+  });
 });
