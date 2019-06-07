@@ -1,3 +1,11 @@
+// We use anime for the drawing of the svg. Could have done without, but the timeline function makes it fun to sync with the scroll
+import anime from "animejs";
+// https://video-dev.github.io/can-autoplay/
+import canAutoplay from "can-autoplay";
+// File where utility functions are stored
+import { getArrayWithNoise, getRandomBetween } from "./utils";
+
+// CSS Files
 require("normalize.css/normalize.css");
 require("./styles/index.scss");
 
@@ -7,17 +15,14 @@ const audio2 = require("./assets/audio/2.mp3");
 const audio3 = require("./assets/audio/3.mp3");
 const audio4 = require("./assets/audio/4.mp3");
 const audio5 = require("./assets/audio/5.mp3");
+
 // This is the constant buzzing of the mosquitos you hear
 const mosquito = require("./assets/audio/mosq.mp3");
 
-// We use anime for the drawing of the svg. Could have done without, but the timeline function makes it fun to sync with the scroll
-import anime from "animejs";
-
-// File where utility functions are stored
-import { getArrayWithNoise, getRandomBetween } from "./utils";
+// Mute is when the user clicks on the mute button
+let mute;
 
 // PLYR  (https://plyr.io/)
-
 // Initiatie Audio Player: Mosquitos
 const mosquitoAudio = new Plyr("#mosquitoAudio", {});
 mosquitoAudio.source = {
@@ -35,9 +40,6 @@ mosquitoAudio.volume = 0.1;
 
 // Initiate Audio Player: Chapters
 const chaptersAudio = new Plyr("#chaptersAudio", {});
-
-// We start with the music unmuted
-let mute = false;
 
 // MOSQUITOS
 // We use ThreeJS and an extra library build on threejs called "phenomenon" to create the mosquitos.
@@ -265,7 +267,7 @@ function Drawing(id, audio) {
   this.rect = this.element.getBoundingClientRect();
 }
 
-var drawings = [];
+let drawings = [];
 drawings.push(new Drawing("drawingOne", audio1));
 drawings.push(new Drawing("drawingTwo", audio2));
 drawings.push(new Drawing("drawingThree", audio3));
@@ -312,14 +314,6 @@ function playChapterAudio(id) {
     drawings[id].playing = true;
   }
 }
-
-// function fadeVolume(modifier, id) {
-//   uot(p => {
-//     itemaudio.volume = audio.volume + p*modifier;
-//     if (p === 1) {
-//     }
-//   }, 1000);
-// }
 
 // loop over chapters and animate the svg paths on scroll
 function loopDrawings() {
@@ -397,9 +391,6 @@ function toggleAllBGAudio() {
 // Create a PLYR video and set the right id.
 let vimeoPlayer;
 function toggleVideo(id) {
-  stopAllBGAudio();
-  mute = true;
-
   const videoToggle = document.getElementById("videoToggle");
   videoToggle.classList.toggle("active");
   const videoOverlay = document.getElementById("videoOverlay");
@@ -419,6 +410,9 @@ function toggleVideo(id) {
 const playButtons = document.querySelectorAll(".chapter__play");
 playButtons.forEach(function(elem) {
   elem.addEventListener("click", function() {
+    if(!mute) {
+      stopAllBGAudio()
+    };
     toggleVideo(this.dataset.value);
   });
 });
@@ -426,17 +420,44 @@ playButtons.forEach(function(elem) {
 // Button to close video modal
 const closeVideo = document.getElementById("videoToggle");
 closeVideo.addEventListener("click", function() {
+  if(!mute) {
+    toggleAllBGAudio()
+  };
   toggleVideo(this.dataset.value);
 });
 
-// Button to toggle audio
+// Buttons to toggle audio
+// There are two buttons: the on and the off. This could be one svg, but this was faster.
+const audioButtons = document.querySelectorAll(".audio__button");
+const toggleAudioButton = function() {
+  audioButtons.forEach(function(elem) {
+    elem.classList.toggle("active");
+  });
+}
+
+
 const toggleBGAudio = document.getElementById("bgAudioToggle");
 toggleBGAudio.addEventListener("click", function() {
   mute = !mute;
   toggleAllBGAudio();
-
-  const audioButtons = document.querySelectorAll(".audio__button");
-  audioButtons.forEach(function(elem) {
-    elem.classList.toggle("active");
-  });
+  toggleAudioButton();
 });
+
+
+// Check if autoplay is possible (https://github.com/video-dev/can-autoplay)
+canAutoplay.audio().then(({result}) => {
+  if (result === true) {
+    console.log('can play')
+    mute = false;
+  } else {
+    console.log('cannot play')
+    if(mosquitoAudio.playing){
+      console.log('but the mosqs are playing')
+      mute = false;
+    } else {
+      console.log('and the mosqs are indeed not playing')
+      mute = true;
+      toggleAudioButton();
+    }
+  }
+})
