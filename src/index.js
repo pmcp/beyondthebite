@@ -4,7 +4,6 @@ import anime from "animejs";
 import canAutoplay from "can-autoplay";
 // File where utility functions are stored
 import { getArrayWithNoise, getRandomBetween } from "./utils";
-
 // CSS Files
 require("normalize.css/normalize.css");
 require("./styles/index.scss");
@@ -123,7 +122,7 @@ function createInstance({ geometry, material, multiplier, duration, points }) {
 
   const fragment = [];
 
-  instance = new THREE.Phenomenon({
+  instance = new Phenomenon({
     attributes,
     uniforms,
     vertex,

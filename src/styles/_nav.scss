@@ -1,6 +1,6 @@
 .nav__button {
   position: fixed;
-  top: 5%;
+  bottom: 5%;
   right: 2%;
   height: 27px;
   width: 35px;
@@ -11,8 +11,15 @@
   &:hover {
     opacity: 0.7;
   }
-
+  .nav__button--close {
+    display: none;
+    fill: #fff;
+  }
   &.active {
+
+    // Tweaks for NI
+    .nav__button--open { display: none;}
+    .nav__button--close { display: inline-block  }
     .top {
       transform: translateY(11px) translateX(0) rotate(45deg);
       background: $light;
