@@ -16,10 +16,16 @@
     fill: #fff;
   }
   &.active {
-
     // Tweaks for NI
-    .nav__button--open { display: none;}
-    .nav__button--close { display: inline-block  }
+    .nav__button--open {
+      display: none;
+    }
+    .nav__button--close {
+      display: inline-block;
+      position: fixed;
+      top: 2rem;
+      width: 3rem;
+    }
     .top {
       transform: translateY(11px) translateX(0) rotate(45deg);
       background: $light;
@@ -100,9 +106,6 @@
   flex-flow: row nowrap;
 }
 
-
-
-
 .nav__left {
   flex: 2 1 0;
   display: flex;
@@ -114,13 +117,12 @@
 
 .nav__left h2 {
   max-width: 500px;
-  color: $accent
+  color: $accent;
 }
 
 .nav__left p {
-  
   max-width: 500px;
-  color: $light
+  color: $light;
 }
 
 .nav__right {
@@ -139,13 +141,29 @@
     pointer-events: bounding-box;
   }
 
-  .st0{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;}
-  .st1{fill:#FFFFFF;}
-  .st2{fill:#CF8289;}
-  .st3{font-family:'ProximaNova-Regular';}
-  .st4{font-size:26px;}
-  .st5{letter-spacing:1;}
-  .st6{fill-opacity:0;}
+  .st0 {
+    fill: none;
+    stroke: #ffffff;
+    stroke-miterlimit: 10;
+  }
+  .st1 {
+    fill: #ffffff;
+  }
+  .st2 {
+    fill: #cf8289;
+  }
+  .st3 {
+    font-family: "ProximaNova-Regular";
+  }
+  .st4 {
+    font-size: 26px;
+  }
+  .st5 {
+    letter-spacing: 1;
+  }
+  .st6 {
+    fill-opacity: 0;
+  }
 
   .svg__home {
     fill: $accent;
@@ -162,7 +180,7 @@
     .svg__text path {
       fill: $light;
       stroke-width: 0;
-      transition: fill .4s;
+      transition: fill 0.4s;
     }
 
     .svg__label {
@@ -193,8 +211,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-
-
   .nav__overlay {
     overflow: scroll;
   }
@@ -208,6 +224,5 @@
     margin-bottom: 4em;
     padding-left: 1em;
     padding-right: 1em;
-    
   }
 }
