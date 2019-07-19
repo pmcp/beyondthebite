@@ -100,7 +100,7 @@
   flex: 2 1 0;
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   padding-left: 3em;
 }
@@ -120,12 +120,14 @@
   flex: 1 1 0;
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-top: 3rem;
 }
 
 .nav__svg {
   height: 80vh;
+  min-height: 500px;
   g {
     pointer-events: bounding-box;
   }
