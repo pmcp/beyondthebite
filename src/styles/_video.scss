@@ -103,3 +103,9 @@
 .plyr {
   // margin-top: 8rem;
 }
+
+.plyr--video {
+  max-height: 100vh;
+
+max-width: calc(100vh*1.75);
+}
