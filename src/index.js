@@ -15,6 +15,21 @@ const audio3 = require("./assets/audio/3.mp3");
 const audio4 = require("./assets/audio/4.mp3");
 const audio5 = require("./assets/audio/5.mp3");
 
+
+// Detect if iOS, because the animated drawings don't work in the iFrame on iOS
+function is_iOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // /*
+    //     Returns whether device agent is iOS Safari
+    // */
+    // var ua = navigator.userAgent;
+    // var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+    // var webkitUa = !!ua.match(/WebKit/i);
+
+    // return typeof webkit !== 'undefined' && iOS && webkit && !ua.match(/CriOS/i);
+};
+
+
 // This is the constant buzzing of the mosquitos you hear
 const mosquito = require("./assets/audio/mosq.mp3");
 
@@ -248,7 +263,7 @@ function Drawing(id, audio) {
         })
         .add({
             targets: "#" + id + " path.animatedRoad",
-            // strokeDashoffset: [anime.setDashoffset, 0],
+            strokeDashoffset: [anime.setDashoffset, 0],
             duration: 50000,
             easing: "easeInOutSine"
         })
@@ -257,7 +272,7 @@ function Drawing(id, audio) {
             delay: function(el, i) {
                 return i * 250;
             },
-            // strokeDashoffset: [anime.setDashoffset, 0],
+            strokeDashoffset: [anime.setDashoffset, 0],
             duration: 1000
         });
     this.inView = false;
@@ -266,11 +281,20 @@ function Drawing(id, audio) {
 }
 
 let drawings = [];
-drawings.push(new Drawing("drawingOne", audio1));
-drawings.push(new Drawing("drawingTwo", audio2));
-drawings.push(new Drawing("drawingThree", audio3));
-drawings.push(new Drawing("drawingFour", audio4));
-drawings.push(new Drawing("drawingFive", audio5));
+
+
+if (is_iOS()) {
+    alert('ios')
+} else {
+    alert('not ios')
+    drawings.push(new Drawing("drawingOne", audio1));
+    drawings.push(new Drawing("drawingTwo", audio2));
+    drawings.push(new Drawing("drawingThree", audio3));
+    drawings.push(new Drawing("drawingFour", audio4));
+    drawings.push(new Drawing("drawingFive", audio5));
+
+}
+
 
 // Set the begin durations to zero
 function setDurationtoZero() {
@@ -278,7 +302,7 @@ function setDurationtoZero() {
     for (let i = 0; i < arrayLength; i++) {
         let element = drawings[i].element;
         const ani = drawings[i].animation;
-        ani.seek(1000);
+        ani.seek(0);
     }
 }
 setDurationtoZero();
@@ -339,6 +363,24 @@ function loopDrawings() {
         }
     }
 }
+
+
+if (is_iOS()) {
+
+} else {
+    document.addEventListener("scroll", function(e) {
+        loopDrawings()
+    });
+    // window.addEventListener("touchmove", function(e) {
+    //   loopDrawings();
+    // });
+}
+
+
+
+
+
+
 
 // NAVIGATION
 // The navigation gets toggled when clicked on the nav button
