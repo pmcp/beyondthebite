@@ -283,10 +283,7 @@ function Drawing(id, audio) {
 let drawings = [];
 
 
-if (is_iOS()) {
-    alert('ios')
-} else {
-    alert('not ios')
+if (is_iOS()) {} else {
     drawings.push(new Drawing("drawingOne", audio1));
     drawings.push(new Drawing("drawingTwo", audio2));
     drawings.push(new Drawing("drawingThree", audio3));
