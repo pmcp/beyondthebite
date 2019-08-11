@@ -324,6 +324,8 @@ function loopDrawings() {
     const boxHeight = rect.height;
     const boxBottom = boxTop + boxHeight;
     const ani = drawings[i].animation;
+    console.log('looping') 
+    console.log(rect, boxTop, boxHeight, boxBottom)
     if (boxTop > screenTop) {
       if (boxBottom < screenBottom - 0) {
         // ani.seek(ani.duration * 100);
@@ -342,9 +344,25 @@ function loopDrawings() {
   }
 }
 
-window.addEventListener("scroll", function(e) {
-  loopDrawings();
+
+setTimeout(function () {
+  //Do something inside the iframe 
+  console.log(window)
+
+
+  window.addEventListener("scroll", function(e) {
+    console.log('scrolling')
+    loopDrawings();
+  });
+
+
+document.addEventListener("click", function(e) {
+  console.log('scrolling')
+  // loopDrawings();
 });
+
+}, 200); //100 ms of grace time
+
 
 // NAVIGATION
 // The navigation gets toggled when clicked on the nav button
@@ -446,15 +464,11 @@ toggleBGAudio.addEventListener("click", function() {
 // Check if autoplay is possible (https://github.com/video-dev/can-autoplay)
 canAutoplay.audio().then(({result}) => {
   if (result === true) {
-    console.log('can play')
     mute = false;
   } else {
-    console.log('cannot play')
     if(mosquitoAudio.playing){
-      console.log('but the mosqs are playing')
       mute = false;
     } else {
-      console.log('and the mosqs are indeed not playing')
       mute = true;
       toggleAudioButton();
     }

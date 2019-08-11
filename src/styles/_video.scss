@@ -105,7 +105,7 @@
 }
 
 .plyr--video {
-  max-height: 100vh;
+  max-height: 100%;
 
-max-width: calc(100vh*1.75);
+  max-width: calc(100vh*1.75);
 }
