@@ -1,37 +1,34 @@
 .audio__player {
-  visibility: hidden;
-  position: absolute;
-  top: -2000px;
+    visibility: hidden;
+    position: absolute;
+    top: -2000px;
 }
 
 .audio__buttons {
-  position: fixed;
-  bottom: 2em;
-  left: 2em;
-  z-index: 3000;
-  cursor: pointer;
+    position: fixed;
+    bottom: 2em;
+    left: 2em;
+    z-index: 3000;
+    cursor: pointer;
 }
 
 .audio__button {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: auto;
-  height: 2em;
-
-  .audio__text {
-    color: $dark;
-  }
-  svg {
-    height: 1.6em;
-    fill: $dark;
-    padding-right: .8em;
-
-
-  }
-  display: none;
-  &.active {
     display: flex;
-  }
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    height: 2em;
+    .audio__text {
+        color: $dark;
+    }
+    svg {
+        height: 1.6em;
+        fill: $dark;
+        padding-right: .8em;
+    }
+    display: none;
+    &.active {
+        display: flex;
+    }
 }

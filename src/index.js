@@ -25,15 +25,13 @@ let mute;
 // Initiatie Audio Player: Mosquitos
 const mosquitoAudio = new Plyr("#mosquitoAudio", {});
 mosquitoAudio.source = {
-  type: "audio",
-  autoplay: true,
-  loop: true,
-  sources: [
-    {
-      src: mosquito,
-      type: "audio/mp3"
-    }
-  ]
+    type: "audio",
+    autoplay: true,
+    loop: true,
+    sources: [{
+        src: mosquito,
+        type: "audio/mp3"
+    }]
 };
 mosquitoAudio.volume = 0.1;
 
@@ -45,41 +43,40 @@ const chaptersAudio = new Plyr("#chaptersAudio", {});
 // There are a hundred ways to do this, we choose this one
 let instance;
 let uniforms = {
-  time: {
-    value: 0
-  }
+    time: {
+        value: 0
+    }
 };
 
 function createInstance({ geometry, material, multiplier, duration, points }) {
-  const attributes = [
-    {
-      name: "aPositionStart",
-      data: points[0],
-      size: 3
-    },
-    {
-      name: "aControlPointOne",
-      data: points[1],
-      size: 3
-    },
-    {
-      name: "aControlPointTwo",
-      data: points[2],
-      size: 3
-    },
-    {
-      name: "aPositionEnd",
-      data: points[3],
-      size: 3
-    },
-    {
-      name: "aOffset",
-      data: i => [i * ((1 - duration) / (multiplier - 1))],
-      size: 1
-    }
-  ];
+    const attributes = [{
+            name: "aPositionStart",
+            data: points[0],
+            size: 3
+        },
+        {
+            name: "aControlPointOne",
+            data: points[1],
+            size: 3
+        },
+        {
+            name: "aControlPointTwo",
+            data: points[2],
+            size: 3
+        },
+        {
+            name: "aPositionEnd",
+            data: points[3],
+            size: 3
+        },
+        {
+            name: "aOffset",
+            data: i => [i * ((1 - duration) / (multiplier - 1))],
+            size: 1
+        }
+    ];
 
-  const vertex = `
+    const vertex = `
     attribute vec3 aPositionStart;
     attribute vec3 aControlPointOne;
     attribute vec3 aControlPointTwo;
@@ -120,25 +117,25 @@ function createInstance({ geometry, material, multiplier, duration, points }) {
     }
   `;
 
-  const fragment = [];
+    const fragment = [];
 
-  instance = new Phenomenon({
-    attributes,
-    uniforms,
-    vertex,
-    geometry,
-    multiplier,
-    material,
-    fragment
-  });
+    instance = new Phenomenon({
+        attributes,
+        uniforms,
+        vertex,
+        geometry,
+        multiplier,
+        material,
+        fragment
+    });
 
-  scene.add(instance.mesh);
-  return instance;
+    scene.add(instance.mesh);
+    return instance;
 }
 
 const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  alpha: true
+    antialias: true,
+    alpha: true
 });
 
 renderer.setClearColor(0x212121, 0);
@@ -149,10 +146,10 @@ document.querySelector("#particles").appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  40,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  100
+    40,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
 );
 camera.position.set(0, 20 * 1, 35 * 1);
 camera.lookAt(scene.position);
@@ -166,104 +163,106 @@ light.position.set(0, 40, 0);
 
 scene.add(light);
 let time = 0;
-function createMovingMosquitos() {
-  // Reset time to zero
-  time = 0;
-  // Create the mesh
-  createInstance({
-    geometry: new THREE.CircleGeometry(0.06, 12, 1),
-    material: new THREE.MeshBasicMaterial({
-      transparent: true,
-      opacity: 1,
-      color: "#000",
-      flatShading: true
-    }),
-    multiplier: 2000,
-    duration: 2.4,
-    points: [
-      () => getArrayWithNoise([-10, 0, 0], 4),
-      () => getArrayWithNoise([-2.5, -10, 0], 4),
-      () => getArrayWithNoise([2.5, 10, 0], 4),
-      () => getArrayWithNoise([10, 0, 0], 4)
-    ]
-  });
-  // Set mesh opacity to almost invisible
-  instance.mesh.material.opacity = 0.1;
 
-  // Start timer that will animate the particles
-  // We use a small library called UOT to count from 0 to 100 in a specific timeframe
-  uot(p => {
-    // Progress the animation
-    time = p;
-    // Opacity in
-    if (p < 0.3) {
-      if (instance.mesh.material.opacity >= 1) {
-        return;
-      } else {
-        instance.mesh.material.opacity =
-          instance.mesh.material.opacity + instance.mesh.material.opacity / 10;
-      }
-    }
-    // Opacity out
-    if (p > 0.5) {
-      if (instance.mesh.material.opacity <= 0) {
-        return;
-      } else {
-        instance.mesh.material.opacity =
-          instance.mesh.material.opacity - instance.mesh.material.opacity / 100;
-      }
-    }
-    // remnove mesh and create a new one
-    if (p === 1) {
-      scene.remove(instance.mesh);
-      createMovingMosquitos();
-    }
-  }, 20000);
+function createMovingMosquitos() {
+    // Reset time to zero
+    time = 0;
+    // Create the mesh
+    createInstance({
+        geometry: new THREE.CircleGeometry(0.06, 12, 1),
+        material: new THREE.MeshBasicMaterial({
+            transparent: true,
+            opacity: 1,
+            color: "#000",
+            flatShading: true
+        }),
+        multiplier: 2000,
+        duration: 2.4,
+        points: [
+            () => getArrayWithNoise([-10, 0, 0], 4),
+            () => getArrayWithNoise([-2.5, -10, 0], 4),
+            () => getArrayWithNoise([2.5, 10, 0], 4),
+            () => getArrayWithNoise([10, 0, 0], 4)
+        ]
+    });
+    // Set mesh opacity to almost invisible
+    instance.mesh.material.opacity = 0.1;
+
+    // Start timer that will animate the particles
+    // We use a small library called UOT to count from 0 to 100 in a specific timeframe
+    uot(p => {
+        // Progress the animation
+        time = p;
+        // Opacity in
+        if (p < 0.3) {
+            if (instance.mesh.material.opacity >= 1) {
+                return;
+            } else {
+                instance.mesh.material.opacity =
+                    instance.mesh.material.opacity + instance.mesh.material.opacity / 10;
+            }
+        }
+        // Opacity out
+        if (p > 0.5) {
+            if (instance.mesh.material.opacity <= 0) {
+                return;
+            } else {
+                instance.mesh.material.opacity =
+                    instance.mesh.material.opacity - instance.mesh.material.opacity / 100;
+            }
+        }
+        // remnove mesh and create a new one
+        if (p === 1) {
+            scene.remove(instance.mesh);
+            createMovingMosquitos();
+        }
+    }, 20000);
 }
 
 // First time creating the mosquitos
 createMovingMosquitos();
 // Start the animation
 function animate() {
-  requestAnimationFrame(animate);
-  uniforms.time.value = time;
-  renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+    uniforms.time.value = time;
+    renderer.render(scene, camera);
 }
 animate();
 
 // CHAPTERS
 // For the chapters we have to calculate when they are come in, are in or get out of view
-const screenTop = window.pageYOffset || document.documentElement.scrollTop;
+// const screenTop = window.pageYOffset || document.documentElement.scrollTop;
+const screenTop = 0;
 const screenBottom =
-  (window.pageYOffset || document.documentElement.scrollTop) +
-  window.innerHeight;
+    (window.pageYOffset || document.documentElement.scrollTop) +
+    window.innerHeight;
 
 // SVG Animations are done with animejs
 function Drawing(id, audio) {
-  this.playing = false;
-  this.audio = audio;
-  this.id = id;
-  this.animation = anime
-    .timeline({
-      autoplay: false
-    })
-    .add({
-      targets: "#" + id + " path.animatedRoad",
-      strokeDashoffset: [anime.setDashoffset, 0],
-      duration: 50000,
-      easing: "easeInOutSine"
-    })
-    .add({
-      targets: "#" + id + " path.animatedLine",
-      delay: function(el, i) {
-        return i * 250;
-      },
-      strokeDashoffset: [anime.setDashoffset, 0],
-      duration: 1000
-    });
-  this.inView = false;
-  this.element = document.getElementById(id);
-  this.rect = this.element.getBoundingClientRect();
+    this.playing = false;
+    this.audio = audio;
+    this.id = id;
+    this.animation = anime
+        .timeline({
+            autoplay: false
+        })
+        .add({
+            targets: "#" + id + " path.animatedRoad",
+            // strokeDashoffset: [anime.setDashoffset, 0],
+            duration: 50000,
+            easing: "easeInOutSine"
+        })
+        .add({
+            targets: "#" + id + " path.animatedLine",
+            delay: function(el, i) {
+                return i * 250;
+            },
+            // strokeDashoffset: [anime.setDashoffset, 0],
+            duration: 1000
+        });
+    this.inView = false;
+    this.element = document.getElementById(id);
+    this.rect = this.element.getBoundingClientRect();
 }
 
 let drawings = [];
@@ -275,202 +274,180 @@ drawings.push(new Drawing("drawingFive", audio5));
 
 // Set the begin durations to zero
 function setDurationtoZero() {
-  const arrayLength = drawings.length;
-  for (let i = 0; i < arrayLength; i++) {
-    let element = drawings[i].element;
-    const ani = drawings[i].animation;
-    ani.seek(0);
-  }
+    const arrayLength = drawings.length;
+    for (let i = 0; i < arrayLength; i++) {
+        let element = drawings[i].element;
+        const ani = drawings[i].animation;
+        ani.seek(1000);
+    }
 }
 setDurationtoZero();
 
 function playChapterAudio(id) {
-  if (mute) {
-    // User muted the audio, so do nothing
-  } else {
-    // stop player
-    chaptersAudio.stop();
-    // indicate that nothing is playing
-    const arrayLength = drawings.length;
-    for (let i = 0; i < arrayLength; i++) {
-      drawings[i].playing = false;
-    }
-
-    // set source with audio from active chapter
-    chaptersAudio.source = {
-      type: "audio",
-      autoplay: true,
-      loop: true,
-      sources: [
-        {
-          src: drawings[id].audio,
-          type: "audio/mp3"
+    if (mute) {
+        // User muted the audio, so do nothing
+    } else {
+        // stop player
+        chaptersAudio.stop();
+        // indicate that nothing is playing
+        const arrayLength = drawings.length;
+        for (let i = 0; i < arrayLength; i++) {
+            drawings[i].playing = false;
         }
-      ]
-    };
 
-    // set value of playing for this chapter to true;
-    drawings[id].playing = true;
-  }
+        // set source with audio from active chapter
+        chaptersAudio.source = {
+            type: "audio",
+            autoplay: true,
+            loop: true,
+            sources: [{
+                src: drawings[id].audio,
+                type: "audio/mp3"
+            }]
+        };
+
+        // set value of playing for this chapter to true;
+        drawings[id].playing = true;
+    }
 }
+
 
 // loop over chapters and animate the svg paths on scroll
 function loopDrawings() {
-  const arrayLength = drawings.length;
-  for (let i = 0; i < arrayLength; i++) {
-    let element = drawings[i].element;
-    const rect = element.getBoundingClientRect();
-    const boxTop = rect.top + screenTop;
-    const boxHeight = rect.height;
-    const boxBottom = boxTop + boxHeight;
-    const ani = drawings[i].animation;
-    console.log('looping') 
-    console.log(rect, boxTop, boxHeight, boxBottom)
-    if (boxTop > screenTop) {
-      if (boxBottom < screenBottom - 0) {
-        // ani.seek(ani.duration * 100);
-      } else if (boxTop < screenBottom) {
-        let percent = (screenBottom - boxTop - 200) / boxHeight;
+    const arrayLength = drawings.length;
+    for (let i = 0; i < arrayLength; i++) {
+        let element = drawings[i].element;
+        const rect = element.getBoundingClientRect();
+        const boxTop = rect.top + screenTop;
+        const boxHeight = rect.height;
+        const boxBottom = boxTop + boxHeight;
+        const ani = drawings[i].animation;
+        if (boxTop > screenTop) {
+            if (boxBottom < screenBottom - 0) {
+                // ani.seek(ani.duration * 100);
+            } else if (boxTop < screenBottom) {
+                let percent = (screenBottom - boxTop - 200) / boxHeight;
 
-        if (percent > 0.2 && drawings[i].playing === false) {
-          playChapterAudio(i);
+                if (percent > 0.2 && drawings[i].playing === false) {
+                    playChapterAudio(i);
+                }
+                ani.seek(ani.duration * percent);
+            }
+        } else if (boxBottom > screenTop) {
+            let percent = (screenBottom - boxTop - 200) / boxHeight;
+            ani.seek(ani.duration * percent);
         }
-        ani.seek(ani.duration * percent);
-      }
-    } else if (boxBottom > screenTop) {
-      let percent = (screenBottom - boxTop - 200) / boxHeight;
-      ani.seek(ani.duration * percent);
     }
-  }
 }
-
-
-setTimeout(function () {
-  //Do something inside the iframe 
-  console.log(window)
-
-
-  window.addEventListener("scroll", function(e) {
-    console.log('scrolling')
-    loopDrawings();
-  });
-
-
-document.addEventListener("click", function(e) {
-  console.log('scrolling')
-  // loopDrawings();
-});
-
-}, 200); //100 ms of grace time
-
 
 // NAVIGATION
 // The navigation gets toggled when clicked on the nav button
 function toggleNav() {
-  const navToggle = document.getElementById("navToggle");
-  navToggle.classList.toggle("active");
-  const navOverlay = document.getElementById("navOverlay");
-  navOverlay.classList.toggle("open");
+    const navToggle = document.getElementById("navToggle");
+    navToggle.classList.toggle("active");
+    const navOverlay = document.getElementById("navOverlay");
+    navOverlay.classList.toggle("open");
 }
 const link = document.getElementById("navToggle");
 link.addEventListener("click", toggleNav);
 
 // Go to chapter from nav
 function goToChapter(id) {
-  toggleNav();
-  document.getElementById(id).scrollIntoView({
-    behavior: "smooth"
-  });
+    toggleNav();
+    document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 const navButtons = document.querySelectorAll(".svg__chapter");
 navButtons.forEach(function(elem) {
-  elem.addEventListener("click", function() {
-    goToChapter(this.dataset.value);
-  });
+    elem.addEventListener("click", function() {
+        goToChapter(this.dataset.value);
+    });
 });
 
 function stopAllBGAudio() {
-  if (chaptersAudio.playing) {
-    chaptersAudio.stop();
-  }
-  if (mosquitoAudio.playing) {
-    mosquitoAudio.stop();
-  }
+    if (chaptersAudio.playing) {
+        chaptersAudio.stop();
+    }
+    if (mosquitoAudio.playing) {
+        mosquitoAudio.stop();
+    }
 }
 
 function toggleAllBGAudio() {
-  chaptersAudio.togglePlay();
-  mosquitoAudio.togglePlay();
+    chaptersAudio.togglePlay();
+    mosquitoAudio.togglePlay();
 }
 
 // VIDEO
 // Create a PLYR video and set the right id.
 let vimeoPlayer;
-function toggleVideo(id) {
-  const videoToggle = document.getElementById("videoToggle");
-  videoToggle.classList.toggle("active");
-  const videoOverlay = document.getElementById("videoOverlay");
-  videoOverlay.classList.toggle("open");
 
-  if (id === "close") {
-    vimeoPlayer.destroy();
-  } else {
-    document
-      .getElementById("vimeoPlayer")
-      .setAttribute("data-plyr-embed-id", id);
-    vimeoPlayer = new Plyr("#vimeoPlayer", {});
-  }
+function toggleVideo(id) {
+    const videoToggle = document.getElementById("videoToggle");
+    videoToggle.classList.toggle("active");
+    const videoOverlay = document.getElementById("videoOverlay");
+    videoOverlay.classList.toggle("open");
+
+    if (id === "close") {
+        vimeoPlayer.destroy();
+    } else {
+        document
+            .getElementById("vimeoPlayer")
+            .setAttribute("data-plyr-embed-id", id);
+        vimeoPlayer = new Plyr("#vimeoPlayer", {});
+    }
 }
 
 // button to open video modal
 const playButtons = document.querySelectorAll(".chapter__play");
 playButtons.forEach(function(elem) {
-  elem.addEventListener("click", function() {
-    if(!mute) {
-      stopAllBGAudio()
-    };
-    toggleVideo(this.dataset.value);
-  });
+    elem.addEventListener("click", function() {
+        if (!mute) {
+            stopAllBGAudio()
+        };
+        toggleVideo(this.dataset.value);
+    });
 });
 
 // Button to close video modal
 const closeVideo = document.getElementById("videoToggle");
 closeVideo.addEventListener("click", function() {
-  if(!mute) {
-    toggleAllBGAudio()
-  };
-  toggleVideo(this.dataset.value);
+    if (!mute) {
+        toggleAllBGAudio()
+    };
+    toggleVideo(this.dataset.value);
 });
 
 // Buttons to toggle audio
 // There are two buttons: the on and the off. This could be one svg, but this was faster.
 const audioButtons = document.querySelectorAll(".audio__button");
 const toggleAudioButton = function() {
-  audioButtons.forEach(function(elem) {
-    elem.classList.toggle("active");
-  });
+    audioButtons.forEach(function(elem) {
+        elem.classList.toggle("active");
+    });
 }
 
 
 const toggleBGAudio = document.getElementById("bgAudioToggle");
 toggleBGAudio.addEventListener("click", function() {
-  mute = !mute;
-  toggleAllBGAudio();
-  toggleAudioButton();
+    mute = !mute;
+    toggleAllBGAudio();
+    toggleAudioButton();
 });
 
 
 // Check if autoplay is possible (https://github.com/video-dev/can-autoplay)
-canAutoplay.audio().then(({result}) => {
-  if (result === true) {
-    mute = false;
-  } else {
-    if(mosquitoAudio.playing){
-      mute = false;
+canAutoplay.audio().then(({ result }) => {
+    if (result === true) {
+        mute = false;
     } else {
-      mute = true;
-      toggleAudioButton();
+        if (mosquitoAudio.playing) {
+            mute = false;
+        } else {
+            mute = true;
+            toggleAudioButton();
+        }
     }
-  }
 })

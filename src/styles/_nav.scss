@@ -1,228 +1,213 @@
 .nav__button {
-  position: fixed;
-  bottom: 3%;
-  right: 2%;
-  height: 27px;
-  width: 35px;
-  cursor: pointer;
-  z-index: 3100;
-  transition: opacity 0.25s ease;
-
-  &:hover {
-    opacity: 0.7;
-  }
-  .nav__button--close {
-    display: none;
-    fill: #fff;
-  }
-  &.active {
-    // Tweaks for NI
-    .nav__button--open {
-      display: none;
+    position: fixed;
+    bottom: 3%;
+    right: 2%;
+    height: 27px;
+    width: 35px;
+    cursor: pointer;
+    z-index: 3100;
+    transition: opacity 0.25s ease;
+    &:hover {
+        opacity: 0.7;
     }
     .nav__button--close {
-      display: inline-block;
-      position: fixed;
-      top: 2rem;
-      width: 3rem;
+        display: none;
+        fill: #fff;
     }
-    .top {
-      transform: translateY(11px) translateX(0) rotate(45deg);
-      background: $light;
+    &.active {
+        // Tweaks for NI
+        .nav__button--open {
+            display: none;
+        }
+        .nav__button--close {
+            display: inline-block;
+            position: fixed;
+            top: 2rem;
+            width: 3rem;
+        }
+        .top {
+            transform: translateY(11px) translateX(0) rotate(45deg);
+            background: $light;
+        }
+        .middle {
+            opacity: 0;
+            background: $light;
+        }
+        .bottom {
+            transform: translateY(-11px) translateX(0) rotate(-45deg);
+            background: $light;
+        }
+        &.videoOpen {
+            display: none;
+        }
     }
-    .middle {
-      opacity: 0;
-      background: $light;
+    span {
+        background: $dark;
+        border: none;
+        height: 5px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.35s ease;
+        cursor: pointer;
+        &:nth-of-type(2) {
+            top: 11px;
+        }
+        &:nth-of-type(3) {
+            top: 22px;
+        }
     }
-
-    .bottom {
-      transform: translateY(-11px) translateX(0) rotate(-45deg);
-      background: $light;
-    }
-    &.videoOpen {
-      display: none;
-    }
-  }
-
-  span {
-    background: $dark;
-    border: none;
-    height: 5px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: all 0.35s ease;
-    cursor: pointer;
-
-    &:nth-of-type(2) {
-      top: 11px;
-    }
-
-    &:nth-of-type(3) {
-      top: 22px;
-    }
-  }
 }
 
 .nav__overlay {
-  position: fixed;
-  background: $dark;
-  display: flex;
-  justify-content: center;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0%;
-  opacity: 0;
-  z-index: 900;
-  visibility: hidden;
-  transition: opacity 0.35s, visibility 0.35s, height 0.35s;
-  overflow: scroll;
-
-  &.open {
-    opacity: 0.97;
-    visibility: visible;
-    height: 100%;
-    z-index: 3000;
-  }
+    position: fixed;
+    background: $dark;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    opacity: 0;
+    z-index: 900;
+    visibility: hidden;
+    transition: opacity 0.35s, visibility 0.35s, height 0.35s;
+    overflow: scroll;
+    &.open {
+        opacity: 0.97;
+        visibility: visible;
+        height: 100%;
+        z-index: 3000;
+    }
 }
 
 @keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    left: 20%;
-  }
-  100% {
-    opacity: 1;
-    left: 0;
-  }
+    0% {
+        opacity: 0;
+        left: 20%;
+    }
+    100% {
+        opacity: 1;
+        left: 0;
+    }
 }
 
 .nav__container {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  flex-flow: row nowrap;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-flow: row nowrap;
 }
 
 .nav__left {
-  flex: 2 1 0;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding-left: 3em;
+    flex: 2 1 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 3em;
 }
 
 .nav__left h2 {
-  max-width: 500px;
-  color: $accent;
+    max-width: 500px;
+    color: $accent;
 }
 
 .nav__left p {
-  max-width: 500px;
-  color: $light;
+    max-width: 500px;
+    color: $light;
 }
 
 .nav__right {
-  flex: 1 1 0;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 3rem;
+    flex: 1 1 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 3rem;
 }
 
 .nav__svg {
-  height: 80%;
-  min-height: 500px;
-  g {
-    pointer-events: bounding-box;
-  }
-
-  .st0 {
-    fill: none;
-    stroke: #ffffff;
-    stroke-miterlimit: 10;
-  }
-  .st1 {
-    fill: #ffffff;
-  }
-  .st2 {
-    fill: #cf8289;
-  }
-  .st3 {
-    font-family: "ProximaNova-Regular";
-  }
-  .st4 {
-    font-size: 26px;
-  }
-  .st5 {
-    letter-spacing: 1;
-  }
-  .st6 {
-    fill-opacity: 0;
-  }
-
-  .svg__home {
-    fill: $accent;
-  }
-
-  .svg__chapter {
-    .svg__circle {
-      fill: $light;
-      stroke: $light;
-      stroke-width: 0px;
-      transition: stroke-width 1s;
+    height: 80%;
+    min-height: 500px;
+    g {
+        pointer-events: bounding-box;
     }
-
-    .svg__text path {
-      fill: $light;
-      stroke-width: 0;
-      transition: fill 0.4s;
+    .st0 {
+        fill: none;
+        stroke: #ffffff;
+        stroke-miterlimit: 10;
     }
-
-    .svg__label {
-      fill: $accent;
+    .st1 {
+        fill: #ffffff;
     }
-
-    &:hover {
-      cursor: pointer;
-      .svg__circle {
+    .st2 {
+        fill: #cf8289;
+    }
+    .st3 {
+        font-family: "ProximaNova-Regular";
+    }
+    .st4 {
+        font-size: 26px;
+    }
+    .st5 {
+        letter-spacing: 1;
+    }
+    .st6 {
+        fill-opacity: 0;
+    }
+    .svg__home {
         fill: $accent;
-        stroke: $accent;
-        stroke-width: 10px;
-        transition: stroke-width 0.2s;
-      }
-      .svg__text path {
-        fill: $accent;
-        stroke-width: 0;
-        transition: fill 0.2s;
-      }
     }
-  }
-
-  .svg__line {
-    fill: none;
-    stroke: $light;
-    stroke-miterlimit: 10;
-  }
+    .svg__chapter {
+        .svg__circle {
+            fill: $light;
+            stroke: $light;
+            stroke-width: 0px;
+            transition: stroke-width 1s;
+        }
+        .svg__text path {
+            fill: $light;
+            stroke-width: 0;
+            transition: fill 0.4s;
+        }
+        .svg__label {
+            fill: $accent;
+        }
+        &:hover {
+            cursor: pointer;
+            .svg__circle {
+                fill: $accent;
+                stroke: $accent;
+                stroke-width: 10px;
+                transition: stroke-width 0.2s;
+            }
+            .svg__text path {
+                fill: $accent;
+                stroke-width: 0;
+                transition: fill 0.2s;
+            }
+        }
+    }
+    .svg__line {
+        fill: none;
+        stroke: $light;
+        stroke-miterlimit: 10;
+    }
 }
 
 @media only screen and (max-width: 600px) {
-  .nav__overlay {
-    overflow: scroll;
-  }
-
-  .nav__container {
-    display: block;
-  }
-
-  .nav__left {
-    margin-top: 4em;
-    margin-bottom: 4em;
-    padding-left: 1em;
-    padding-right: 1em;
-  }
+    .nav__overlay {
+        overflow: scroll;
+    }
+    .nav__container {
+        display: block;
+    }
+    .nav__left {
+        margin-top: 4em;
+        margin-bottom: 4em;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
 }
